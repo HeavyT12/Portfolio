@@ -1,6 +1,6 @@
 <template>
 	<TyApp
-		class="ty-app"
+		class="ty-home"
 		:announcements="announcements"
 	>
 		<template #app-bar>
@@ -10,18 +10,9 @@
 			/>
 
 			<div class="mx-2">
-				Tyson Farley Home Page
+				Tyson Farley Portfolio &#8212; Home Page
 			</div>
 		</template>
-
-		<TyLoadingMask
-			v-model="showingMask"
-			@click="showingMask = false"
-		/>
-
-		<TyButton @click="showingMask = true">
-			Show Loading
-		</TyButton>
 
 		<StateFoodSafety />
 		<Domo />
@@ -35,9 +26,9 @@
 	import Domo from "Period/Domo/Domo.vue";
 	import StateFoodSafety from "Period/StateFoodSafety/StateFoodSafety.vue";
 	import TyApp from "App/App.vue";
+	import TyButton from "Button/Button.vue";
 	import TyImage from "Image/Image.vue";
 	import TyLoadingMask from "Loading/Mask.vue";
-	import TyButton from "Button/Button.vue";
 
 	import { mapState } from "vuex";
 
@@ -48,14 +39,10 @@
 			StateFoodSafety,
 			Domo,
 			TyApp,
-			TyImage,
-			TyLoadingMask,
 			TyButton,
+			TyImage,
+			TyLoadingMask
 		},
-
-		data: () => ({
-			showingMask: false,
-		}),
 
 		computed: {
 			...mapState("System", ["announcements"]),

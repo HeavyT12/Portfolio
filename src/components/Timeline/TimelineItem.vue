@@ -10,14 +10,17 @@
 		<template #opposite>
 			<span
 				v-if="date"
-				class="headline font-weight-bold"
+				class="text-h6 font-weight-bold"
 			>
 				{{ date }}
 			</span>
 			<slot name="opposite" />
 		</template>
-		<div class="d-flex">
-			<v-flex v-if="shouldSpace" />
+		<div
+			class="ty-timeline-item__content d-flex"
+			:class="contentClasses"
+		>
+			<v-flex v-if="updateShouldSpace()" />
 			<slot />
 		</div>
 	</v-timeline-item>
@@ -46,27 +49,46 @@
 			shouldSpace: false
 		}),
 
-		mounted() {
-			this.calcShouldSpace();
-		},
-
-		updated() {
-			this.calcShouldSpace();
+		computed: {
+			contentClasses() {
+				return {
+					['ty-timeline-item__content--right-align']: this.shouldSpace
+				}
+			}
 		},
 
 		methods: {
 			calcShouldSpace() {
+				if (this.$vuetify.breakpoint.xs) {
+					return false;
+				}
+
 				const thisEl = this.$el;
 
 				if (!thisEl) {
-					return;
+					return false;
 				}
 
 				const style = getComputedStyle(thisEl);
 				const flexDirection = style.flexDirection;
 
-				this.shouldSpace = flexDirection !== 'row-reverse';
+				return flexDirection !== 'row-reverse';
+			},
+
+			updateShouldSpace() {
+				this.shouldSpace = this.calcShouldSpace()
+				return this.shouldSpace;
 			}
 		}
 	};
 </script>
+
+<style lang="scss" scoped>
+	.ty-timeline-item {
+		.ty-timeline-item__content {
+			&.ty-timeline-item__content--right-align {
+				text-align: right;
+			}
+		}
+	}
+</style>

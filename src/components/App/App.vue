@@ -1,5 +1,5 @@
 <template>
-	<v-app class="app">
+	<v-app class="ty-app">
 		<v-app-bar app>
 			<slot name="app-bar" />
 		</v-app-bar>
@@ -7,9 +7,9 @@
 		<v-main>
 			<TyAnnouncementBar :announcements="announcements" />
 
-			<v-container fluid>
+			<TyContainer fluid>
 				<slot />
-			</v-container>
+			</TyContainer>
 		</v-main>
 
 		<v-footer app>
@@ -23,12 +23,14 @@
 
 <script>
 	import TyAnnouncementBar from 'AnnouncementBar/AnnouncementBar.vue';
+	import TyContainer from "Container/Container.vue"
 
 	export default {
 		name: 'TyApp',
 
 		components: {
-			TyAnnouncementBar
+			TyAnnouncementBar,
+			TyContainer
 		},
 
 		props: {

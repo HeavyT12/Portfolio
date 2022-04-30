@@ -2,6 +2,8 @@
 	<div class="ty-timeline">
 		<v-toolbar
 			v-if="title"
+			class="text-h5"
+			:style="toolbarStyle"
 			flat
 			dense
 		>
@@ -11,6 +13,7 @@
 			v-bind="$attrs"
 			ref="timeline"
 			class="ty-timeline__timeline"
+			:dense="isDense"
 			v-on="$listeners"
 		>
 			<slot />
@@ -28,17 +31,29 @@
 		inheritAttrs: false,
 
 		props: {
+			/** The main heading for the timeline section. */
 			title: {
 				type: String,
 				default: ''
 			},
 
+			/** Array of strings that represent the color theme for the timeline. */
 			colors: {
 				type: Array,
 				required: true,
 				validator: colors =>
 					colors.length > 0
 					&& colors.every(color => typeof color == 'string')
+			}
+		},
+
+		computed: {
+			toolbarStyle() {
+				return `border-bottom: 3px solid ${this.colors[0]};`
+			},
+
+			isDense() {
+				return this.$vuetify.breakpoint.xs;
 			}
 		},
 
@@ -58,10 +73,6 @@
 
 		methods: {
 			processColors() {
-				if (this.colors.length == 0) {
-					return;
-				}
-
 				this.$children[1]?.$children
 					.filter(child => child.$options.name === TyTimelineItem.name)
 					.forEach((timelineItem, index) => {
