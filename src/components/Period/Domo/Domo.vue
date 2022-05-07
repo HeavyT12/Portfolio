@@ -6,9 +6,10 @@
 		:colors="colors"
 		v-on="$listeners"
 	>
-		<TyTimelineItem date="October 18, 2021">
-			Hired
-		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('October 18, 2021')"
+			title="Hired"
+		/>
 	</TyTimeline>
 </template>
 

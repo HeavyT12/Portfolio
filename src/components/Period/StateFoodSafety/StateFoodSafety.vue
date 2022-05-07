@@ -6,18 +6,22 @@
 		:colors="colors"
 		v-on="$listeners"
 	>
-		<TyTimelineItem date="January 22, 2018">
-			Hired
-		</TyTimelineItem>
-		<TyTimelineItem date="November 2018">
-			Start of Vue implementation
-		</TyTimelineItem>
-		<TyTimelineItem date="July 2019">
-			Compliance Manager started
-		</TyTimelineItem>
-		<TyTimelineItem date="December 2019">
-			Graduated from Utah Valley University
-		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('January 22, 2018')"
+			title="Hired"
+		/>
+		<TyTimelineItem
+			:date="new Date('November 2018')"
+			title="Vue Implementation"
+		/>
+		<TyTimelineItem
+			:date="new Date('July 2019')"
+			title="Compliance Manager"
+		/>
+		<TyTimelineItem
+			:date="new Date('December 2019')"
+			title="Graduated from College"
+		/>
 	</TyTimeline>
 </template>
 

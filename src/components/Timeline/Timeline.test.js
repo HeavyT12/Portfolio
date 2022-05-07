@@ -1,7 +1,17 @@
 import Timeline from './Timeline.vue';
 import { createShallowMountFactory } from 'util/test-helpers.js';
 
-const factory = createShallowMountFactory(Timeline);
+const innerFactory = createShallowMountFactory(Timeline);
+
+const factory = (settings = {}) => {
+	return innerFactory({
+		...settings,
+		propsData: {
+			colors: ["red"],
+			...settings.propsData
+		}
+	})
+}
 
 describe('Timeline', () => {
 	describe('Slots', () => {
