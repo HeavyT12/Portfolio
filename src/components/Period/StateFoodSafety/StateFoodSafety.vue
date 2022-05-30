@@ -15,6 +15,10 @@
 			title="Vue Implementation"
 		/>
 		<TyTimelineItem
+			:date="new Date('December 2018')"
+			title="My Group Purchases"
+		/>
+		<TyTimelineItem
 			:date="new Date('July 2019')"
 			title="Compliance Manager"
 		/>

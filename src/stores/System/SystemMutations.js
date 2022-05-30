@@ -1,0 +1,9 @@
+export const ADD_ALERT = 'addAlert';
+export const ADD_ANNOUNCEMENT = 'addAnnouncement';
+export const ADD_MESSAGE = 'addMessage';
+export const DECREMENT_ALERTS = 'decrementAlerts';
+export const DECREMENT_ANNOUNCEMENTS = 'decrementAnnoucements';
+export const DECREMENT_MESSAGES = 'decrementMessages';
+export const CLEAR_ALERTS = 'clearAlerts';
+export const CLEAR_ANNOUNCEMENTS = 'clearAnnoucements';
+export const CLEAR_MESSAGES = 'clearMessages';

@@ -5,7 +5,7 @@
 		</v-app-bar>
 
 		<v-main>
-			<TyAnnouncementBar :announcements="announcements" />
+			<slot name="notification" />
 
 			<TyContainer fluid>
 				<slot />
@@ -31,13 +31,6 @@
 		components: {
 			TyAnnouncementBar,
 			TyContainer
-		},
-
-		props: {
-			announcements: {
-				type: Array,
-				default: () => []
-			}
 		},
 
 		computed: {

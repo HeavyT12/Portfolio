@@ -1,8 +1,11 @@
 <template>
-	<v-snackbar
+	<TySnackBar
 		v-bind="$attrs"
 		class="ty-alert-snackbar"
 		top
+		min-width="auto"
+		:color="colorToUse"
+		:icon="iconToUse"
 		v-on="$listeners"
 	>
 		<template v-for="(alert, n) in alerts">
@@ -10,26 +13,23 @@
 				{{ alert }}
 			</div>
 		</template>
-	</v-snackbar>
+	</TySnackBar>
 </template>
 
 <script>
+	import NotificationFactory from 'mixins/Notification/Notification.js';
+
+	import TySnackBar from 'Snackbar/Snackbar.vue';
+
 	export default {
 		name: 'TyAlertSnackBar',
 
-		props: {
-			/** The list of alerts to display. */
-			alerts: {
-				type: Array,
-				default: () => [],
-				validator: (alerts) =>
-					alerts.every((alert) => typeof alert === 'string')
-			},
+		inheritAttrs: false,
 
-			type: {
-				type: String,
-				required: true
-			}
+		mixins: [NotificationFactory('alerts')],
+
+		components: {
+			TySnackBar
 		}
 	};
 </script>

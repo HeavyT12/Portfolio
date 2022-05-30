@@ -1,14 +1,18 @@
 <template>
 	<v-alert
-		v-if="announcements.length"
+		v-bind="$attrs"
 		class="announcement-bar text-center"
 		:type="type"
+		:icon="iconToUse"
+		v-on="$listeners"
 	>
 		{{ text }}
 	</v-alert>
 </template>
 
 <script>
+	import { ICON_MAP } from 'mixins/Notification/Notification.js';
+
 	import { hasOwnProperty } from 'object.js';
 
 	const DEFAULT_MESSAGE_MILLISECONDS = 10000;
@@ -16,12 +20,14 @@
 	export default {
 		name: 'TyAnnouncementBar',
 
+		inheritAttrs: false,
+
 		props: {
 			announcements: {
 				type: Array,
 				default: () => [],
 				validator: (announcements) =>
-					announcements.every((announcement) =>
+					announcements.every(announcement =>
 						hasOwnProperty(announcement, 'type', 'text')
 					)
 			},
@@ -51,7 +57,11 @@
 			text() {
 				return this.announcements.length
 					? this.announcements[this.index].text
-					: "";
+					: '';
+			},
+
+			iconToUse() {
+				return ICON_MAP[this.type];
 			}
 		},
 

@@ -3,6 +3,20 @@
 		class="ty-home"
 		:announcements="announcements"
 	>
+		<template #notification>
+			<SystemNotificationHub
+				show-announcements
+				show-success-alerts
+				show-info-alerts
+				show-warning-alerts
+				show-error-alerts
+				show-success-messages
+				show-info-messages
+				show-warning-messages
+				show-error-messages
+			/>
+		</template>
+
 		<template #app-bar>
 			<TyImage
 				src="../resource/logo.png"
@@ -14,38 +28,53 @@
 			</div>
 		</template>
 
-		<StateFoodSafety />
-		<Domo />
-		<div class="text-center text-h4">
-			Present
-		</div>
+		<TyButton @click="adder('success')">success</TyButton>
+		<TyButton @click="adder('error')">error</TyButton>
+		<TyButton @click="adder('info')">info</TyButton>
+		<TyButton @click="adder('warning')">warning</TyButton>
+
+		<PersonalHistory :dense="$vuetify.breakpoint.xs" />
 	</TyApp>
 </template>
 
 <script>
-	import Domo from "Period/Domo/Domo.vue";
-	import StateFoodSafety from "Period/StateFoodSafety/StateFoodSafety.vue";
-	import TyApp from "App/App.vue";
-	import TyButton from "Button/Button.vue";
-	import TyImage from "Image/Image.vue";
-	import TyLoadingMask from "Loading/Mask.vue";
+	import PersonalHistory from 'PersonalHistory/PersonalHistory.vue';
+	import TyApp from 'App/App.vue';
+	import TyButton from 'Button/Button.vue';
+	import TyIcon from 'Icon/Icon.vue';
+	import TyImage from 'Image/Image.vue';
+	import SystemNotificationHub from 'SystemNotificationHub/SystemNotificationHub.vue';
 
-	import { mapState } from "vuex";
+	import { mapMutations } from 'vuex';
 
 	export default {
-		name: "Home",
+		name: 'Home',
 
 		components: {
-			StateFoodSafety,
-			Domo,
+			PersonalHistory,
 			TyApp,
 			TyButton,
+			TyIcon,
 			TyImage,
-			TyLoadingMask
+			SystemNotificationHub
 		},
 
-		computed: {
-			...mapState("System", ["announcements"]),
-		},
+		data: () => ({
+			snack: false
+		}),
+
+		methods: {
+			...mapMutations('System', [
+				'addAlert',
+				'addAnnouncement',
+				'addMessage'
+			]),
+
+			adder(type) {
+				this.addAlert({ type, text: type });
+				this.addMessage({ type, text: type });
+				this.addAnnouncement({ type, text: type });
+			}
+		}
 	};
 </script>

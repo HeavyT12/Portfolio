@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vuetify from 'plugins/vuetify.js';
 import Vuex, { Store } from 'vuex';
 
 function errorHandler(error) {
@@ -9,6 +9,8 @@ function errorHandler(error) {
 window.onerror = function (message, source, lineno, colno, error) {
 	errorHandler(error);
 }
+
+Vue.use(Vuex);
 
 Vue.config.errorHandler = errorHandler;
 
@@ -21,14 +23,11 @@ export function createAppDiv() {
 };
 
 export function mount(component, store = null) {
-	Vue.use(Vuex);
-	Vue.use(Vuetify);
-
 	document.body.appendChild(createAppDiv());
 
 	const initializer = {
 		el: '#app',
-		vuetify: new Vuetify(),
+		vuetify: Vuetify,
 		render: h => h(component)
 	};
 

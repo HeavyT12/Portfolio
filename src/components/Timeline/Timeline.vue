@@ -13,7 +13,6 @@
 			v-bind="$attrs"
 			ref="timeline"
 			class="ty-timeline__timeline"
-			:dense="isDense"
 			v-on="$listeners"
 		>
 			<slot />

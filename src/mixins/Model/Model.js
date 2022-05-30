@@ -22,6 +22,12 @@ export default {
 
 		localValue(localValue) {
 			this.$emit('input', localValue);
+
+			if (localValue) {
+				this.$emit('open');
+			} else {
+				this.$emit('close')
+			}
 		}
 	}
 };
