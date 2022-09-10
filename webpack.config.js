@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
@@ -11,7 +12,11 @@ module.exports = {
 			title: 'Tyson Farley Portfolio',
 		}),
 		new VueLoaderPlugin(),
-		new VuetifyLoaderPlugin()
+		new VuetifyLoaderPlugin(),
+		// Webpack 5 does not have process environment variables. Needed for Vuelidate.
+		new webpack.EnvironmentPlugin({
+			BUILD: 'web'
+		})
 	],
 	output: {
 		filename: 'main.js',

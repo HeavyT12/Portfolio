@@ -7,6 +7,7 @@
 			:key="n"
 			:type="type"
 			:alerts="notifications"
+			:timeout="6000 + notifications.length"
 			@close="clearMethod"
 		/>
 
@@ -45,9 +46,9 @@
 	} from 'stores/System/SystemGetters.js';
 
 	import {
-		CLEAR_ALERTS,
 		CLEAR_MESSAGES,
-		CLEAR_ANNOUNCEMENTS
+		CLEAR_ANNOUNCEMENTS,
+		DECREMENT_ALERTS,
 	} from 'stores/System/SystemMutations.js';
 
 	import {
@@ -137,9 +138,9 @@
 
 		methods: {
 			...mapMutations('System', [
-				CLEAR_ALERTS,
 				CLEAR_ANNOUNCEMENTS,
-				CLEAR_MESSAGES
+				CLEAR_MESSAGES,
+				DECREMENT_ALERTS
 			]),
 
 			filterTypes(typeMap) {
@@ -149,7 +150,7 @@
 			},
 
 			genAlertsData() {
-				return this.genData(GET_ALERTS, CLEAR_ALERTS, this.filterTypes({
+				return this.genData(GET_ALERTS, DECREMENT_ALERTS, this.filterTypes({
 					[TYPE_SUCCESS]: this.showSuccessAlerts,
 					[TYPE_INFO]: this.showInfoAlerts,
 					[TYPE_WARNING]: this.showWarningAlerts,
@@ -181,6 +182,10 @@
 			},
 
 			genNotificationClearer(clearer, type) {
+				return () => this[clearer]({ type });
+			},
+
+			genNotificationDecrementer(clearer, type) {
 				return () => this[clearer]({ type });
 			},
 

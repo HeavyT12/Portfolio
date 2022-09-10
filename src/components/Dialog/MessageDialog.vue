@@ -14,11 +14,12 @@
 			/>
 		</template>
 
-		<template v-for="(message, n) in messages">
-			<div :key="n">
-				{{ message }}
-			</div>
-		</template>
+		<div
+			v-for="(message, n) in messages"
+			:key="n"
+		>
+			{{ message }}
+		</div>
 	</TyDialog>
 </template>
 

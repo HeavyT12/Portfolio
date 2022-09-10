@@ -28,24 +28,17 @@
 			</div>
 		</template>
 
-		<TyButton @click="adder('success')">success</TyButton>
-		<TyButton @click="adder('error')">error</TyButton>
-		<TyButton @click="adder('info')">info</TyButton>
-		<TyButton @click="adder('warning')">warning</TyButton>
-
-		<PersonalHistory :dense="$vuetify.breakpoint.xs" />
+		<PersonalHistory
+			:dense="$vuetify.breakpoint.xs"
+		/>
 	</TyApp>
 </template>
 
 <script>
 	import PersonalHistory from 'PersonalHistory/PersonalHistory.vue';
 	import TyApp from 'App/App.vue';
-	import TyButton from 'Button/Button.vue';
-	import TyIcon from 'Icon/Icon.vue';
 	import TyImage from 'Image/Image.vue';
 	import SystemNotificationHub from 'SystemNotificationHub/SystemNotificationHub.vue';
-
-	import { mapMutations } from 'vuex';
 
 	export default {
 		name: 'Home',
@@ -53,28 +46,8 @@
 		components: {
 			PersonalHistory,
 			TyApp,
-			TyButton,
-			TyIcon,
 			TyImage,
 			SystemNotificationHub
-		},
-
-		data: () => ({
-			snack: false
-		}),
-
-		methods: {
-			...mapMutations('System', [
-				'addAlert',
-				'addAnnouncement',
-				'addMessage'
-			]),
-
-			adder(type) {
-				this.addAlert({ type, text: type });
-				this.addMessage({ type, text: type });
-				this.addAnnouncement({ type, text: type });
-			}
 		}
 	};
 </script>

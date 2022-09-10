@@ -12,7 +12,7 @@
 			</TyContainer>
 		</v-main>
 
-		<v-footer app>
+		<v-footer>
 			<slot name="footer" />
 			<div class="app__footer text-caption text-center">
 				Copyright &copy; {{ today.getFullYear() }} Tyson Farley
@@ -42,7 +42,7 @@
 </script>
 
 <style lang="scss" scoped>
-	.app {
+	.ty-app {
 		.app__footer {
 			width: 100%;
 		}

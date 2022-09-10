@@ -100,16 +100,16 @@ export default {
 			addNotifications(state, MESSAGES, { text, type });
 		},
 
-		[DECREMENT_ALERTS](state, { quantity = 1 } = {}) {
-			decrementNotifications(state, ALERTS, quantity);
+		[DECREMENT_ALERTS](state, { quantity = 1, type = undefined } = {}) {
+			decrementNotifications(state, ALERTS, quantity, type);
 		},
 
-		[DECREMENT_ANNOUNCEMENTS](state, { quantity = 1 } = {}) {
-			decrementNotifications(state, ANNOUNCEMENTS, quantity);
+		[DECREMENT_ANNOUNCEMENTS](state, { quantity = 1, type = undefined } = {}) {
+			decrementNotifications(state, ANNOUNCEMENTS, quantity, type);
 		},
 
-		[DECREMENT_MESSAGES](state, { quantity = 1 } = {}) {
-			decrementNotifications(state, MESSAGES, quantity);
+		[DECREMENT_MESSAGES](state, { quantity = 1, type = undefined } = {}) {
+			decrementNotifications(state, MESSAGES, quantity, type);
 		},
 
 		[CLEAR_ALERTS](state, { type = undefined } = {}) {

@@ -10,6 +10,10 @@
 			:date="new Date('October 18, 2021')"
 			title="Hired"
 		/>
+		<TyTimelineItem
+			:date="new Date('May 26, 2022')"
+			title="MDX Translation"
+		/>
 	</TyTimeline>
 </template>
 

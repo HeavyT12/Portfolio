@@ -8,11 +8,12 @@
 		:icon="iconToUse"
 		v-on="$listeners"
 	>
-		<template v-for="(alert, n) in alerts">
-			<div :key="n">
-				{{ alert }}
-			</div>
-		</template>
+		<div
+			v-for="(alert, n) in alerts"
+			:key="n"
+		>
+			{{ alert }}
+		</div>
 	</TySnackBar>
 </template>
 
