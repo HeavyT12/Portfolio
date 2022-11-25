@@ -12,7 +12,8 @@
 		<v-timeline
 			v-bind="$attrs"
 			ref="timeline"
-			class="ty-timeline__timeline px-4"
+			class="ty-timeline__timeline pr-4"
+			:class="timelineClasses"
 			v-on="$listeners"
 		>
 			<slot />
@@ -55,6 +56,12 @@
 		}),
 
 		computed: {
+			timelineClasses() {
+				return {
+					'pl-4': !this.dense
+				};
+			},
+
 			toolbarStyle() {
 				return `border-bottom: 3px solid ${this.colors[0]};`
 			}
