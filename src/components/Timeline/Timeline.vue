@@ -2,7 +2,7 @@
 	<div class="ty-timeline">
 		<v-toolbar
 			v-if="title"
-			class="text-h5"
+			class="text-h4"
 			:style="toolbarStyle"
 			flat
 			dense
@@ -12,7 +12,7 @@
 		<v-timeline
 			v-bind="$attrs"
 			ref="timeline"
-			class="ty-timeline__timeline"
+			class="ty-timeline__timeline px-4"
 			v-on="$listeners"
 		>
 			<slot />
@@ -22,6 +22,10 @@
 
 <script>
 	import TyTimelineItem from 'Timeline/TimelineItem.vue';
+
+	const V_TIMELINE_WATCHERS = {
+		dense: false
+	};
 
 	/** Specialized version of the v-timeline component. */
 	export default {
@@ -46,13 +50,13 @@
 			}
 		},
 
+		data: () => ({
+			...V_TIMELINE_WATCHERS,
+		}),
+
 		computed: {
 			toolbarStyle() {
 				return `border-bottom: 3px solid ${this.colors[0]};`
-			},
-
-			isDense() {
-				return this.$vuetify.breakpoint.xs;
 			}
 		},
 
@@ -61,22 +65,50 @@
 				deep: true,
 				immediate: true,
 				handler() {
-					this.processColors();
+					this.updateTimelineItemsColor();
 				}
 			}
 		},
 
 		mounted() {
-			this.processColors();
+			this.updateTimelineItemsColor();
+
+			// Set up the child component watchers.
+			Object.keys(V_TIMELINE_WATCHERS).forEach((field) => {
+				this.$watch(
+					() => this.$refs.timeline[field],
+					(value) => {
+						this[field] = value;
+						this.updateTimelineItemsDense();
+					},
+					{
+						immediate: true,
+					}
+				);
+			});
 		},
 
 		methods: {
-			processColors() {
+			updateTimelineItemsColor() {
+				this.updateTimelineItemsProperty(
+					(timelineItem, index) => {
+						timelineItem.color = this.colors[index % this.colors.length];
+					}
+				);
+			},
+
+			updateTimelineItemsDense() {
+				this.updateTimelineItemsProperty(
+					timelineItem => {
+						timelineItem.dense = this.dense;
+					}
+				);
+			},
+
+			updateTimelineItemsProperty(forEachLambda) {
 				this.$children[1]?.$children
 					.filter(child => child.$options.name === TyTimelineItem.name)
-					.forEach((timelineItem, index) => {
-						timelineItem.color = this.colors[index % this.colors.length];
-					});
+					.forEach(forEachLambda);
 			}
 		}
 	};

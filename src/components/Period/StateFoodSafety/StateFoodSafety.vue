@@ -9,23 +9,59 @@
 		<TyTimelineItem
 			:date="new Date('January 22, 2018')"
 			title="Hired"
-		/>
+		>
+			StateFoodSafety's focus is to provide online food safety education.
+			End users can purchase Food Handler, Food Manager, Food Allergy Awareness,
+			and Alcohol Server/Seller certification training.
+			After which, they can view the online course at their leisure and take the
+			final test from the comfort of their own home.
+			<br>
+			StateFoodSafety's website utilizes a JavaScript front-end and a PHP back-end.
+			This was my first developor job, and I had no previous experience with either.
+			Thanks to hard work, determination, and especially incredible coworkers,
+			I quickly came up to speed on StateFoodSafety's tech stack.
+		</TyTimelineItem>
 		<TyTimelineItem
 			:date="new Date('November 2018')"
 			title="Vue Implementation"
-		/>
-		<TyTimelineItem
-			:date="new Date('December 2018')"
-			title="My Group Purchases"
-		/>
+		>
+			The development team started transitioning the front-end to Vue around this time.
+			This was a time of discovery for my team and me as we explored the new capabilities Vue provided.
+			My Group Purchases, a certification education and management tool, was the first app converted to the new framework.
+		</TyTimelineItem>
 		<TyTimelineItem
 			:date="new Date('July 2019')"
 			title="Compliance Manager"
-		/>
+		>
+			An new applet built from the ground up with its front-end entirely in Vue.
+			The Compliance Manager started as a tool to streamline an establishment's education and certification.
+			It later grew to accommodate health inspectors, so they could manage various establishments within their jurisdiction,
+			as well as corporate organizations, so they could monitor multiple locations.
+			I contributed largely to the front-end, pioneering various Vue components,
+			and to the back-end, building out the supporting database and APIs behind it.
+		</TyTimelineItem>
 		<TyTimelineItem
 			:date="new Date('December 2019')"
-			title="Graduated from College"
-		/>
+			title="Graduated Utah Valley University"
+		>
+			Backed by a full tuition scholarship,
+			I graduated Magna Cum Laude with a Computer Science Bachelor's degree and Spanish minor.
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('March 2020')"
+			title="Quarantine"
+		>
+			Transitioned to work from home due to the COVID-19 pandemic.
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('March 2021')"
+			title="TPC Training Acquisition"
+		>
+			Company owners retired and sold StateFoodSafety.
+			TPC Training is an umbrella education corporation.
+			TPC also bought eFoodHandlers several months after purchasing StateFoodSafety and
+			thus entered with a strong presence into the food handling certification market.
+		</TyTimelineItem>
 	</TyTimeline>
 </template>
 

@@ -12,25 +12,42 @@
 				v-if="date"
 				class="text-h6 font-weight-bold"
 			>
-				{{ getMonthName(date.getMonth()) }} {{ date.getFullYear() }}
+				{{ dateString }}
 			</span>
 			<slot name="opposite" />
 		</template>
 
 		<div
 			class="ty-timeline-item__content d-flex"
-			:class="contentClasses"
 		>
 			<v-flex v-if="updateShouldSpace()" />
-			<slot name="title">
-				<div
-					v-if="title"
-					class="text-h6"
+			<v-card>
+				<v-card-title class="py-2 px-4">
+					<slot name="title">
+						<div
+							v-if="title"
+							class="text-h5"
+						>
+							{{ title }}
+						</div>
+					</slot>
+				</v-card-title>
+
+				<v-card-subtitle
+					v-if="dense"
+					class="py-1"
 				>
-					{{ title }}
-				</div>
-			</slot>
-			<slot />
+					{{ dateString }}
+				</v-card-subtitle>
+
+				<template v-if="$slots.default">
+					<v-divider />
+
+					<v-card-text class="black--text">
+						<slot />
+					</v-card-text>
+				</template>
+			</v-card>
 		</div>
 	</v-timeline-item>
 </template>
@@ -53,7 +70,7 @@
 				default: undefined,
 				validator: date =>
 					typeof date == 'undefined'
-					|| date instanceof Date
+						|| date instanceof Date
 			},
 
 			color: {
@@ -64,6 +81,11 @@
 			title: {
 				type: String,
 				default: ''
+			},
+
+			dense: {
+				type: Boolean,
+				default: false
 			}
 		},
 
@@ -76,6 +98,19 @@
 				return {
 					['ty-timeline-item__content--right-align']: this.shouldSpace
 				}
+			},
+
+			dateString() {
+				return `${this.getMonthName(this.date.getMonth())} ${this.date.getFullYear()}`
+			}
+		},
+
+		watch:  {
+			dense: {
+				handler(val) {
+					console.log('timeline item watcher', val);
+				},
+				immediate: true
 			}
 		},
 
