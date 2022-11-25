@@ -22,7 +22,7 @@
 		>
 			<v-flex v-if="updateShouldSpace()" />
 			<v-card>
-				<v-card-title class="py-2 px-4">
+				<v-card-title class="ty-timeline-item__content-title py-2 px-4">
 					<slot name="title">
 						<div
 							v-if="title"
@@ -94,23 +94,8 @@
 		}),
 
 		computed: {
-			contentClasses() {
-				return {
-					['ty-timeline-item__content--right-align']: this.shouldSpace
-				}
-			},
-
 			dateString() {
 				return `${this.getMonthName(this.date.getMonth())} ${this.date.getFullYear()}`
-			}
-		},
-
-		watch:  {
-			dense: {
-				handler(val) {
-					console.log('timeline item watcher', val);
-				},
-				immediate: true
 			}
 		},
 
@@ -146,10 +131,8 @@
 
 <style lang="scss" scoped>
 	.ty-timeline-item {
-		.ty-timeline-item__content {
-			&.ty-timeline-item__content--right-align {
-				text-align: right;
-			}
+		.ty-timeline-item__content-title {
+			word-break: unset;
 		}
 	}
 </style>
