@@ -6,7 +6,7 @@
 			class="text-h4"
 			:class="presentClasses"
 		>
-			Present
+			Present Day
 		</div>
 	</div>
 </template>
