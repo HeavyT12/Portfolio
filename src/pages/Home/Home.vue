@@ -24,8 +24,14 @@
 			/>
 
 			<div class="mx-2">
+				Tyson Farley Portfolio
+			</div>
+
+			<!--
+			<div class="mx-2">
 				Tyson Farley Portfolio &#8212; Home Page
 			</div>
+			-->
 		</template>
 
 		<PersonalHistory
