@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -16,6 +17,12 @@ module.exports = {
 		// Webpack 5 does not have process environment variables. Needed for Vuelidate.
 		new webpack.EnvironmentPlugin({
 			BUILD: 'web'
+		}),
+		new CopyPlugin({
+			patterns: [{
+				from: path.resolve(__dirname, 'resource'),
+				to: 'resource'
+			}]
 		})
 	],
 	output: {

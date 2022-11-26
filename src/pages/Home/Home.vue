@@ -19,7 +19,7 @@
 
 		<template #app-bar>
 			<TyImage
-				src="../resource/logo.png"
+				src="./resource/logo.png"
 				:max-width="$vuetify.breakpoint.mdAndUp ? 60 : 52"
 			/>
 
