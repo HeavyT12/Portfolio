@@ -3,6 +3,7 @@
 		v-bind="$attrs"
 		class="statefoodsafety"
 		title="StateFoodSafety"
+		website="https://www.statefoodsafety.com"
 		:colors="colors"
 		v-on="$listeners"
 	>
@@ -17,7 +18,7 @@
 			final test from the comfort of their own home.
 			<br>
 			StateFoodSafety's website utilizes a JavaScript front-end and a PHP back-end.
-			This was my first developor job, and I had no previous experience with either.
+			This was my first developer job, and I had no previous experience with either.
 			Thanks to hard work, determination, and especially incredible coworkers,
 			I quickly came up to speed on StateFoodSafety's tech stack.
 		</TyTimelineItem>
@@ -33,7 +34,7 @@
 			:date="new Date('July 2019')"
 			title="Compliance Manager"
 		>
-			An new applet built from the ground up with its front-end entirely in Vue.
+			A new applet built from the ground up with its front-end entirely in Vue.
 			The Compliance Manager started as a tool to streamline an establishment's education and certification.
 			It later grew to accommodate health inspectors, so they could manage various establishments within their jurisdiction,
 			as well as corporate organizations, so they could monitor multiple locations.
@@ -42,10 +43,11 @@
 		</TyTimelineItem>
 		<TyTimelineItem
 			:date="new Date('December 2019')"
-			title="Graduated Utah Valley University"
+			title="Graduated UVU"
 		>
-			Backed by a full tuition scholarship,
-			I graduated Magna Cum Laude with a Computer Science Bachelor's degree and Spanish minor.
+			Funded by a full tuition scholarship,
+			I graduated Magna Cum Laude with a Computer Science Bachelor's degree and Spanish minor from
+			<TyLink href="https://www.uvu.edu">Utah Valley University</TyLink>.
 		</TyTimelineItem>
 		<TyTimelineItem
 			:date="new Date('March 2020')"
@@ -58,14 +60,15 @@
 			title="TPC Training Acquisition"
 		>
 			Company owners retired and sold StateFoodSafety.
-			TPC Training is an umbrella education corporation.
-			TPC also bought eFoodHandlers several months after purchasing StateFoodSafety and
+			<TyLink href="https://www.tpctraining.com">TPC Training</TyLink> is a business comprised of online education subsidiaries.
+			Several months after purchasing StateFoodSafety, TPC took ownership of <TyLink href="https://www.efoodhandlers.com">eFoodHandlers</TyLink> and
 			thus entered with a strong presence into the food handling certification market.
 		</TyTimelineItem>
 	</TyTimeline>
 </template>
 
 <script>
+	import TyLink from 'Link/Link.vue';
 	import TyTimeline from 'Timeline/Timeline.vue';
 	import TyTimelineItem from 'Timeline/TimelineItem.vue';
 
@@ -75,6 +78,7 @@
 		inheritAttrs: false,
 
 		components: {
+			TyLink,
 			TyTimeline,
 			TyTimelineItem
 		},

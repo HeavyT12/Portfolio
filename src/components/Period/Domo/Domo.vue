@@ -3,6 +3,7 @@
 		v-bind="$attrs"
 		class="domo"
 		title="Domo"
+		website="https://www.domo.com"
 		:colors="colors"
 		v-on="$listeners"
 	>
@@ -36,7 +37,7 @@
 			a translation service for a new partner's SQL engine dialect.
 			This project would be more within the bounds of existing Domo infrastructure and
 			very different from the MDX translation project earlier in the year,
-			but still posed its own challenges due to the natively supported functions and data types.
+			but still posed its own challenges due to limitations of the natively supported functions and data types.
 		</TyTimelineItem>
 	</TyTimeline>
 </template>

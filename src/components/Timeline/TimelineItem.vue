@@ -130,7 +130,8 @@
 		data: () => ({
 			shouldSpace: false,
 			oversized: false,
-			clickExpanded: false
+			clickExpanded: false,
+			loading: true
 		}),
 
 		computed: {
@@ -149,7 +150,7 @@
 			},
 
 			showCollapsed() {
-				return this.oversized && !this.clickExpanded;
+				return this.loading || (this.oversized && !this.clickExpanded);
 			},
 
 			showExpanded() {
@@ -159,12 +160,6 @@
 
 		created() {
 			this.onResize = debounce(this.validateCardSize, 500);
-		},
-
-		mounted() {
-			this.$nextTick(() => {
-				validateCardSize();
-			});
 		},
 
 		methods: {
@@ -205,6 +200,8 @@
 							|| this.$refs.timelineItemCard.$el.offsetHeight >= MAX_CARD_HEIGHT
 						)
 					);
+
+				this.loading = false;
 			},
 
 			onOverlayClick() {

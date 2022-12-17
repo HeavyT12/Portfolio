@@ -7,7 +7,17 @@
 			flat
 			dense
 		>
-			{{ title }}
+			<TyLink
+				class="ty-timeline__website-link"
+				v-if="website"
+				:href="website"
+
+			>
+				{{ title }}
+			</TyLink>
+			<template v-else>
+				{{ title }}
+			</template>
 		</v-toolbar>
 		<v-timeline
 			v-bind="$attrs"
@@ -22,6 +32,7 @@
 </template>
 
 <script>
+	import TyLink from 'Link/Link.vue';
 	import TyTimelineItem from 'Timeline/TimelineItem.vue';
 
 	const V_TIMELINE_WATCHERS = {
@@ -33,6 +44,10 @@
 		name: 'TyTimeline',
 
 		inheritAttrs: false,
+
+		components: {
+			TyLink
+		},
 
 		props: {
 			/** The main heading for the timeline section. */
@@ -48,6 +63,11 @@
 				validator: colors =>
 					colors.length > 0
 					&& colors.every(color => typeof color == 'string')
+			},
+
+			website: {
+				type: String,
+				default: ''
 			}
 		},
 
@@ -122,9 +142,19 @@
 </script>
 
 <style scoped lang="scss">
-	.ty-timeline {
+.ty-timeline {
 		.ty-timeline__timeline {
 			padding-top: 12px;
+		}
+
+		.ty-timeline__website-link {
+			color: #000;
+			text-decoration: none;
+
+			&:hover {
+				color: #00A2E8;
+				text-decoration: underline;
+			}
 		}
 	}
 </style>
