@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const GoogleTagManagerPlugin = require('webpack-google-tag-manager-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -11,6 +12,9 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			title: 'Tyson Farley Portfolio',
+		}),
+		new GoogleTagManagerPlugin({
+			id: 'G-9X6TTG3268',
 		}),
 		new VueLoaderPlugin(),
 		new VuetifyLoaderPlugin(),

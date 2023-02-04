@@ -28,6 +28,7 @@
 	"homepage": "https://github.com/HeavyT12/Portfolio#readme",
 	"dependencies": {
 		"@babel/eslint-parser": "^7.17.0",
+		"common-tags": "^1.8.2",
 		"html-webpack-plugin": "^5.5.0",
 		"lodash-es": "^4.17.21",
 		"path": "^0.12.7",
@@ -39,10 +40,11 @@
 		"vue-template-compiler": "^2.6.14",
 		"vuelidate": "^0.7.7",
 		"vuelidate-error-extractor": "^2.4.1",
-		"vuetify": "^2.6.4",
+		"vuetify": "^2.6.14",
 		"vuetify-loader": "^1.7.3",
 		"vuex": "^3.6.2",
-		"webpack": "^5.72.0"
+		"webpack": "^5.72.0",
+		"webpack-google-tag-manager-plugin": "^1.0.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.17.9",
