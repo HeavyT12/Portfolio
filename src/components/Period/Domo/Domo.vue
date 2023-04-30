@@ -25,8 +25,8 @@
 			Started an ambitious project to leverage Domo's heavily-integrated relational database
 			infrastructure to translate SQL statements into MDX (Multidimensionl Expressions) for
 			the intent of pulling in data from OLAP cube data sources.
-			Rule were set so that an SQL statement could become an MDX query,
-			and then the MDX result set could be conversely interpreted as if it were as relational datasource.
+			Rules were set so that an SQL statement could become an MDX query,
+			and then the MDX result set could be conversely interpreted as if it were a relational datasource.
 		</TyTimelineItem>
 		<TyTimelineItem
 			:date="new Date('November 2022')"
