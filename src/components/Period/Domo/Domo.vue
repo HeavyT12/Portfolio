@@ -78,7 +78,7 @@
 			title="Vector Database"
 		>
 			With the advent of the AI boom and the wave Domo was riding already,
-			it became apparent there was a need to support unstructured data.
+			it became apparent there was a need to support vector database capability.
 			After rounding out the first few AI services Domo would offer,
 			I proceeded to build out the interface for communicating with a vector database.
 			This would go on to be the building blocks for running a semantic search
@@ -91,6 +91,28 @@
 		>
 			At this time, the majority of my effort was then spent on the machine learning model management side
 			to help build additional connectors for supporting various types of ML model sources.
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('January 2024')"
+			title="Vector Database Continued"
+		>
+			The majority of my attention turned back to enhancing and refining
+			the unstructured data solution.
+			This included switching over Domo's vector database offering to a
+			new vector database provider while still maintaining the same core
+			functionality and structure I had originally built, albeit in an improved way.
+			Additional endpoints to support various use cases were architected and constructed.
+			Other services were built to lean more heavily on the vector database, too.
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('May 30, 2024')"
+			title="Unstructred Data Services Community Livestream"
+		>
+			I had the opportunity to take part in a
+			<TyLink href="https://www.youtube.com/watch?v=3UWYsvBv_08">Domo Community Livestream</TyLink>
+			where I presented on vector databases and how it may be possible to use them in Domo.
+			Work continued on Domo's vector databases, expanding its capability to support
+			additional use cases and growing load.
 		</TyTimelineItem>
 	</TyTimeline>
 </template>
