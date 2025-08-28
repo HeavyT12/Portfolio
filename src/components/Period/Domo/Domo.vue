@@ -114,6 +114,66 @@
 			Work continued on Domo's vector databases, expanding its capability to support
 			additional use cases and growing load.
 		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('August 2024')"
+			title="AI Chat"
+		>
+			As the release date for Domo's AI Chat quickly approached, I began work on leveraging the vector database I built to support
+			AI Chat's context. I also used AI Service's Text-to-SQL so AI Chat would be able to query data sets as it best saw fit.
+			My team and I used our programming and prompt engineering skills in tandem to provide a product
+			that would:
+			<ol>
+				<li>
+					Accept a user's question.
+				</li>
+				<li>
+					Identify which data set would provide the best supporting evidence.
+				</li>
+				<li>
+					Query the data set.
+				</li>
+				<li>
+					Generate a corresponding chart.
+				</li>
+				<li>
+					Respond with a summary—supplemented by the data—to answer the original quesion.
+				</li>
+			</ol>
+
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('October 17, 2024')"
+			title="FileSets"
+		>
+			With vector databases practically complete and AI Chat recently released, my attention then turned to a long sought after effort in Domo:
+			an official unstructured data storage system offering. Following the DataSet structure upon which Domo was built, the FileSets feature was created as its companion.
+			It was previously possible to upload files like documents, slide shows, and images to Domo,
+			but there was no wide-spread option to manage an individual's group or groups of files.
+			I endeavored to implement a file system feature to enable file management, sharing,
+			and distribution that also supported AI use cases by providing context and knowledge to LLMs.
+			There were several iterations where the backend feature had to be reworked, but eventually the capability was built to not only
+			upload files manually and create directories, but also to synchronize a file set with your AWS S3 buckets and GitHub repos.
+			Additionally, a file set could be AI enabled so a user could search over his or her files with natural language queries,
+			supporting use cases like simple AI chatbots and powerful AI agentic solutions.
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('July 2025')"
+			title="Enhanced Cloud Amplifier"
+		>
+			FileSet work was put on hold for several weeks so I could assist our data core team with building better federated data settings.
+			Domo supports several SQL integrations, including but not limited to Snowflake and the aforementioned Dremio and Databricks.
+			There was a large effort to improve the user experience for external data warehouses and integration. I was tasked with the portion
+			regarding creating and maintaining settings for managing the "freshness" of the data coming in, like the length of time for which the
+			data should be cached. The new paradigm was crafting a small set of rules that could then be widely used and reused for various data sets,
+			keeping data freshness settings management a low effort for the user.
+		</TyTimelineItem>
+		<TyTimelineItem
+			:date="new Date('August 2025')"
+			title="FileSets Continued"
+		>
+			Work resumed on the unstructured data offering. The AI Search feature for file sets was further worked on for better content retrieval.
+			File sets were also given a split-file upload feature, allowing clients to upload files in several stages, which was particularly useful for abnormally large files.
+		</TyTimelineItem>
 	</TyTimeline>
 </template>
 
