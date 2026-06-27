@@ -5,13 +5,12 @@
 			class="text-h4"
 			:style="toolbarStyle"
 			flat
-			dense
+			density="compact"
 		>
 			<TyLink
-				class="ty-timeline__website-link"
 				v-if="website"
+				class="ty-timeline__website-link"
 				:href="website"
-
 			>
 				{{ title }}
 			</TyLink>
@@ -21,10 +20,10 @@
 		</v-toolbar>
 		<v-timeline
 			v-bind="$attrs"
-			ref="timeline"
 			class="ty-timeline__timeline pr-4"
 			:class="timelineClasses"
-			v-on="$listeners"
+			:density="dense ? 'compact' : 'default'"
+			:side="dense ? 'end' : undefined"
 		>
 			<slot />
 		</v-timeline>
@@ -32,12 +31,7 @@
 </template>
 
 <script>
-	import TyLink from 'Link/Link.vue';
-	import TyTimelineItem from 'Timeline/TimelineItem.vue';
-
-	const V_TIMELINE_WATCHERS = {
-		dense: false
-	};
+	import TyLink from '@/components/Link/Link.vue';
 
 	/** Specialized version of the v-timeline component. */
 	export default {
@@ -47,6 +41,18 @@
 
 		components: {
 			TyLink
+		},
+
+		provide() {
+			return {
+				// Functions (not refs) so child computeds track the parent's
+				// reactive props without relying on ref auto-unwrapping.
+				timeline: {
+					getColors: () => this.colors,
+					getDense: () => this.dense,
+					register: () => this.nextIndex++
+				}
+			};
 		},
 
 		props: {
@@ -65,6 +71,12 @@
 					&& colors.every(color => typeof color == 'string')
 			},
 
+			/** Whether the timeline renders in its compact, single-sided form. */
+			dense: {
+				type: Boolean,
+				default: false
+			},
+
 			website: {
 				type: String,
 				default: ''
@@ -72,7 +84,8 @@
 		},
 
 		data: () => ({
-			...V_TIMELINE_WATCHERS,
+			// Hands each TyTimelineItem its position so it can pick a color.
+			nextIndex: 0
 		}),
 
 		computed: {
@@ -85,64 +98,12 @@
 			toolbarStyle() {
 				return `border-bottom: 3px solid ${this.colors[0]};`
 			}
-		},
-
-		watch: {
-			colors: {
-				deep: true,
-				immediate: true,
-				handler() {
-					this.updateTimelineItemsColor();
-				}
-			}
-		},
-
-		mounted() {
-			this.updateTimelineItemsColor();
-
-			// Set up the child component watchers.
-			Object.keys(V_TIMELINE_WATCHERS).forEach((field) => {
-				this.$watch(
-					() => this.$refs.timeline[field],
-					(value) => {
-						this[field] = value;
-						this.updateTimelineItemsDense();
-					},
-					{
-						immediate: true,
-					}
-				);
-			});
-		},
-
-		methods: {
-			updateTimelineItemsColor() {
-				this.updateTimelineItemsProperty(
-					(timelineItem, index) => {
-						timelineItem.color = this.colors[index % this.colors.length];
-					}
-				);
-			},
-
-			updateTimelineItemsDense() {
-				this.updateTimelineItemsProperty(
-					timelineItem => {
-						timelineItem.dense = this.dense;
-					}
-				);
-			},
-
-			updateTimelineItemsProperty(forEachLambda) {
-				this.$refs.timeline?.$children
-					.filter(child => child.$options.name === TyTimelineItem.name)
-					.forEach(forEachLambda);
-			}
 		}
 	};
 </script>
 
 <style scoped lang="scss">
-.ty-timeline {
+	.ty-timeline {
 		.ty-timeline__timeline {
 			padding-top: 12px;
 		}

@@ -5,7 +5,6 @@
 		title="StateFoodSafety"
 		website="https://www.statefoodsafety.com"
 		:colors="colors"
-		v-on="$listeners"
 	>
 		<TyTimelineItem
 			:date="new Date('January 22, 2018')"
@@ -68,9 +67,9 @@
 </template>
 
 <script>
-	import TyLink from 'Link/Link.vue';
-	import TyTimeline from 'Timeline/Timeline.vue';
-	import TyTimelineItem from 'Timeline/TimelineItem.vue';
+	import TyLink from '@/components/Link/Link.vue';
+	import TyTimeline from '@/components/Timeline/Timeline.vue';
+	import TyTimelineItem from '@/components/Timeline/TimelineItem.vue';
 
 	export default {
 		name: 'StateFoodSafety',

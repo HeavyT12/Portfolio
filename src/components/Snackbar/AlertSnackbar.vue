@@ -2,11 +2,10 @@
 	<TySnackBar
 		v-bind="$attrs"
 		class="ty-alert-snackbar"
-		top
+		location="top"
 		min-width="auto"
 		:color="colorToUse"
 		:icon="iconToUse"
-		v-on="$listeners"
 	>
 		<div
 			v-for="(alert, n) in alerts"
@@ -18,9 +17,9 @@
 </template>
 
 <script>
-	import NotificationFactory from 'mixins/Notification/Notification.js';
+	import NotificationFactory from '@/mixins/Notification/Notification.js';
 
-	import TySnackBar from 'Snackbar/Snackbar.vue';
+	import TySnackBar from '@/components/Snackbar/Snackbar.vue';
 
 	export default {
 		name: 'TyAlertSnackBar',

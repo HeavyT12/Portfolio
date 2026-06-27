@@ -1,19 +1,9 @@
+import { describe, it, expect } from 'vitest';
+
 import TimelineItem from './TimelineItem.vue';
-import { createShallowMountFactory } from 'util/test-helpers.js';
+import { createMountFactory } from '@/util/test-helpers.js';
 
-const innerFactory = createShallowMountFactory(TimelineItem);
-
-const factory = (settings = {}) => {
-	return innerFactory({
-		...settings,
-		stubs: {
-			'v-timeline-item': {
-				template: '<div><slot /><slot name="opposite" /></div>'
-			},
-			...settings.stubs,
-		}
-	})
-}
+const factory = createMountFactory(TimelineItem);
 
 describe('TimelineItem', () => {
 	describe('Slots', () => {

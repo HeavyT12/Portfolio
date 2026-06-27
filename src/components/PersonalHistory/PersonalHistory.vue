@@ -12,8 +12,8 @@
 </template>
 
 <script>
-	import Domo from 'Period/Domo/Domo.vue';
-	import StateFoodSafety from 'Period/StateFoodSafety/StateFoodSafety.vue';
+	import Domo from '@/components/Period/Domo/Domo.vue';
+	import StateFoodSafety from '@/components/Period/StateFoodSafety/StateFoodSafety.vue';
 
 	export default {
 		name: 'PersonalHistory',

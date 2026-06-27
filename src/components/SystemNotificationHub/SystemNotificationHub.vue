@@ -3,7 +3,6 @@
 		<TyAlertSnackbar
 			v-for="({notifications, clearMethod, type}, n) in genAlertsData()"
 			v-model="notifications.length"
-			app
 			:key="n"
 			:type="type"
 			:alerts="notifications"
@@ -33,30 +32,20 @@
 </template>
 
 <script>
-	import TyAlertSnackbar from 'Snackbar/AlertSnackbar.vue';
-	import TyAnnouncementBar from 'AnnouncementBar/AnnouncementBar.vue'
-	import TyMessageDialog from 'Dialog/MessageDialog.vue';
+	import { mapState, mapActions } from 'pinia';
 
-	import { mapGetters, mapMutations } from 'vuex';
+	import TyAlertSnackbar from '@/components/Snackbar/AlertSnackbar.vue';
+	import TyAnnouncementBar from '@/components/AnnouncementBar/AnnouncementBar.vue';
+	import TyMessageDialog from '@/components/Dialog/MessageDialog.vue';
 
-	import {
-		GET_ALERTS,
-		GET_MESSAGES,
-		GET_ANNOUNCEMENTS
-	} from 'stores/System/SystemGetters.js';
-
-	import {
-		CLEAR_MESSAGES,
-		CLEAR_ANNOUNCEMENTS,
-		DECREMENT_ALERTS,
-	} from 'stores/System/SystemMutations.js';
+	import { useSystemStore } from '@/stores/system.js';
 
 	import {
 		TYPE_SUCCESS,
 		TYPE_INFO,
 		TYPE_WARNING,
 		TYPE_ERROR
-	} from 'mixins/Notification/Notification.js';
+	} from '@/mixins/Notification/Notification.js';
 
 	/** Interface component for the bulk of system notifications. */
 	export default {
@@ -125,32 +114,32 @@
 		}),
 
 		computed: {
-			...mapGetters('System', [
-				GET_ALERTS,
-				GET_ANNOUNCEMENTS,
-				GET_MESSAGES
+			...mapState(useSystemStore, [
+				'getAlerts',
+				'getAnnouncements',
+				'getMessages'
 			]),
 
 			announcements() {
-				return this[GET_ANNOUNCEMENTS]();
+				return this.getAnnouncements();
 			}
 		},
 
 		methods: {
-			...mapMutations('System', [
-				CLEAR_ANNOUNCEMENTS,
-				CLEAR_MESSAGES,
-				DECREMENT_ALERTS
+			...mapActions(useSystemStore, [
+				'clearAnnouncements',
+				'clearMessages',
+				'decrementAlerts'
 			]),
 
 			filterTypes(typeMap) {
 				return Object.entries(typeMap)
-					.filter(([_, value]) => value)
+					.filter(([, value]) => value)
 					.map(([key]) => key);
 			},
 
 			genAlertsData() {
-				return this.genData(GET_ALERTS, DECREMENT_ALERTS, this.filterTypes({
+				return this.genData('getAlerts', 'decrementAlerts', this.filterTypes({
 					[TYPE_SUCCESS]: this.showSuccessAlerts,
 					[TYPE_INFO]: this.showInfoAlerts,
 					[TYPE_WARNING]: this.showWarningAlerts,
@@ -159,7 +148,7 @@
 			},
 
 			genMessagesData() {
-				return this.genData(GET_MESSAGES, CLEAR_MESSAGES, this.filterTypes({
+				return this.genData('getMessages', 'clearMessages', this.filterTypes({
 					[TYPE_SUCCESS]: this.showSuccessMessages,
 					[TYPE_INFO]: this.showInfoMessages,
 					[TYPE_WARNING]: this.showWarningMessages,
@@ -185,13 +174,9 @@
 				return () => this[clearer]({ type });
 			},
 
-			genNotificationDecrementer(clearer, type) {
-				return () => this[clearer]({ type });
-			},
-
 			toggleAnnouncements(input) {
 				if (!input) {
-					this[CLEAR_ANNOUNCEMENTS]();
+					this.clearAnnouncements();
 				}
 			}
 		}

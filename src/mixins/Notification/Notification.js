@@ -11,10 +11,10 @@ const VALID_TYPES = [
 ];
 
 export const ICON_MAP = {
-	[TYPE_SUCCESS]: 'check_circle',
-	[TYPE_INFO]: 'info',
-	[TYPE_WARNING]: 'warning',
-	[TYPE_ERROR]: 'error'
+	[TYPE_SUCCESS]: 'mdi-check-circle',
+	[TYPE_INFO]: 'mdi-information',
+	[TYPE_WARNING]: 'mdi-alert',
+	[TYPE_ERROR]: 'mdi-alert-circle'
 };
 
 export const TITLE_MAP = {

@@ -3,7 +3,6 @@
 		v-bind="$attrs"
 		class="ty-container"
 		:class="classes"
-		v-on="$listeners"
 	>
 		<slot />
 	</v-container>
@@ -19,7 +18,7 @@
 		computed: {
 			classes() {
 				return {
-					['ty-container--squished']: this.$vuetify.breakpoint.mdAndUp
+					['ty-container--squished']: this.$vuetify.display.mdAndUp
 				}
 			}
 		}

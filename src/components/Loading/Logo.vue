@@ -3,14 +3,13 @@
 		v-bind="$attrs"
 		class="ty-loading-logo"
 		:class="classes"
-		src="../resource/logo.png"
+		src="resource/logo.png"
 		:max-width="size"
-		v-on="$listeners"
 	/>
 </template>
 
 <script>
-	import TyImage from 'Image/Image.vue';
+	import TyImage from '@/components/Image/Image.vue';
 
 	export default {
 		name: 'TyLoadingLogo',

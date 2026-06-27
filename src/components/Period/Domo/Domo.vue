@@ -5,7 +5,6 @@
 		title="Domo"
 		website="https://www.domo.com"
 		:colors="colors"
-		v-on="$listeners"
 	>
 		<TyTimelineItem
 			:date="new Date('October 18, 2021')"
@@ -178,9 +177,9 @@
 </template>
 
 <script>
-	import TyTimeline from 'Timeline/Timeline.vue';
-	import TyTimelineItem from 'Timeline/TimelineItem.vue';
-	import TyLink from 'Link/Link.vue';
+	import TyTimeline from '@/components/Timeline/Timeline.vue';
+	import TyTimelineItem from '@/components/Timeline/TimelineItem.vue';
+	import TyLink from '@/components/Link/Link.vue';
 
 	export default {
 		name: 'Domo',

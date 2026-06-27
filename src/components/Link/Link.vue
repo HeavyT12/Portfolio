@@ -4,7 +4,6 @@
 		class="ty-link"
 		:href="href"
 		:target="target"
-		v-on="$listeners"
 	>
 		<slot />
 	</a>

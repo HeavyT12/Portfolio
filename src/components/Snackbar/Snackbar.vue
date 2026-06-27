@@ -5,16 +5,16 @@
 		class="ty-snackbar"
 		:class="classes"
 		content-class="ty-snackbar-content d-flex align-center"
-		v-on="$listeners"
 	>
 		<span
-			v-if="icon || $scopedSlots.icon"
+			v-if="icon || $slots.icon"
 			class="pr-3 align-self-start"
 		>
 			<slot name="icon">
-				<v-icon v-if="icon">
-					{{ icon }}
-				</v-icon>
+				<v-icon
+					v-if="icon"
+					:icon="icon"
+				/>
 			</slot>
 		</span>
 
@@ -22,16 +22,12 @@
 			<slot />
 		</div>
 
-		<template #action="actionProps">
-			<slot
-				name="action"
-				v-bind="actionProps"
-			/>
+		<template #actions>
+			<slot name="actions" />
 
 			<TyButton
 				v-if="closable"
-				v-bind="actionProps"
-				:icon="isCloseIcon ? 'close' : false"
+				:icon="isCloseIcon ? 'mdi-close' : false"
 				:compact="isCloseIcon"
 				@click="localValue = false"
 			>
@@ -42,9 +38,9 @@
 </template>
 
 <script>
-	import Model from 'mixins/Model/Model.js';
+	import Model from '@/mixins/Model/Model.js';
 
-	import TyButton from 'Button/Button.vue';
+	import TyButton from '@/components/Button/Button.vue';
 
 	/** Specialized snackbar component. */
 	export default {
@@ -92,7 +88,7 @@
 <style lang="scss" scoped>
 	.ty-snackbar {
 		&.ty-snackbar--horizontal {
-			::v-deep .v-snack__action {
+			:deep(.v-snackbar__actions) {
 				align-self: start;
 				padding-top: 8px;
 			}

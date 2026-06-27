@@ -3,16 +3,13 @@
 		v-bind="$attrs"
 		class="ty-button"
 		:icon="isIcon"
-		v-on="$listeners"
 	>
 		<span
 			v-if="renderIconStart"
 			:class="iconStartClasses"
 		>
 			<slot name="icon">
-				<v-icon>
-					{{ icon }}
-				</v-icon>
+				<v-icon :icon="icon" />
 			</slot>
 		</span>
 
@@ -25,9 +22,7 @@
 			:class="iconEndClasses"
 		>
 			<slot name="icon">
-				<v-icon>
-					{{ icon }}
-				</v-icon>
+				<v-icon :icon="icon" />
 			</slot>
 		</span>
 	</v-btn>
@@ -73,13 +68,13 @@
 			isIcon() {
 				return this.icon == true
 					|| (
-						(!this.$scopedSlots.default || this.compact)
-						&& (this.icon || this.$scopedSlots.icon)
+						(!this.$slots.default || this.compact)
+						&& (this.icon || this.$slots.icon)
 					);
 			},
 
 			renderIcon() {
-				return this.$scopedSlots.icon
+				return this.$slots.icon
 					|| typeof this.icon == 'string';
 			},
 

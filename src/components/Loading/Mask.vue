@@ -1,11 +1,10 @@
 <template>
 	<v-overlay
+		v-model="localValue"
 		v-bind="$attrs"
-		:value="localValue"
 		class="ty-loading-mask"
-		absolute
-		@click.native="$emit('click')"
-		v-on="$listeners"
+		contained
+		@click="$emit('click')"
 	>
 		<slot name="progress">
 			<TyLoadingLogo />
@@ -15,8 +14,8 @@
 </template>
 
 <script>
-	import Model from 'mixins/Model/Model.js';
-	import TyLoadingLogo from 'Loading/Logo.vue';
+	import Model from '@/mixins/Model/Model.js';
+	import TyLoadingLogo from '@/components/Loading/Logo.vue';
 
 	export default {
 		name: 'TyLoadingMask',
@@ -25,10 +24,10 @@
 
 		mixins: [Model],
 
+		emits: ['click'],
+
 		components: {
 			TyLoadingLogo
-		},
-
-		props: {}
+		}
 	};
 </script>

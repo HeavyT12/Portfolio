@@ -2,7 +2,6 @@
 	<v-icon
 		v-bind="$attrs"
 		class="ty-icon"
-		v-on="$listeners"
 	>
 		<slot />
 	</v-icon>

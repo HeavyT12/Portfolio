@@ -5,7 +5,6 @@
 		class="ty-dialog"
 		content-class="ty-dialog-content"
 		:max-width="maxWidth"
-		v-on="$listeners"
 	>
 		<template #activator="activatorProps">
 			<slot
@@ -15,30 +14,29 @@
 		</template>
 
 		<v-card>
-			<template v-if="title || $scopedSlots.title">
+			<template v-if="title || $slots.title">
 				<v-card-title>
 					<span
-						v-if="icon || $scopedSlots.icon"
+						v-if="icon || $slots.icon"
 						class="pr-2 d-flex"
 					>
 						<slot name="icon">
 							<v-icon
 								v-if="icon"
+								:icon="icon"
 								:color="color"
-							>
-								{{ icon }}
-							</v-icon>
+							/>
 						</slot>
 					</span>
 					<slot name="title">
 						{{ title }}
 					</slot>
 
-					<template v-if=closable>
+					<template v-if="closable">
 						<v-spacer />
 
 						<TyButton
-							icon="close"
+							icon="mdi-close"
 							@click="localValue = false"
 						/>
 					</template>
@@ -47,11 +45,11 @@
 				<v-divider />
 			</template>
 
-			<v-card-text class="pa-5 black--text">
+			<v-card-text class="pa-5">
 				<slot />
 			</v-card-text>
 
-			<template v-if="closable || $scopedSlots.actions">
+			<template v-if="closable || $slots.actions">
 				<v-divider />
 
 				<v-card-actions>
@@ -72,9 +70,9 @@
 </template>
 
 <script>
-	import Model from 'mixins/Model/Model.js';
+	import Model from '@/mixins/Model/Model.js';
 
-	import TyButton from 'Button/Button.vue';
+	import TyButton from '@/components/Button/Button.vue';
 
 	/** Specialized dialog component. */
 	export default {

@@ -1,19 +1,16 @@
 export default {
-	model: {
-		prop: 'value',
-		event: 'input'
+	props: {
+		modelValue: undefined
 	},
 
-	props: {
-		value: undefined
-	},
+	emits: ['update:modelValue', 'open', 'close'],
 
 	data: () => ({
 		localValue: undefined
 	}),
 
 	watch: {
-		value: {
+		modelValue: {
 			immediate: true,
 			handler(value) {
 				this.localValue = value;
@@ -21,12 +18,12 @@ export default {
 		},
 
 		localValue(localValue) {
-			this.$emit('input', localValue);
+			this.$emit('update:modelValue', localValue);
 
 			if (localValue) {
 				this.$emit('open');
 			} else {
-				this.$emit('close')
+				this.$emit('close');
 			}
 		}
 	}

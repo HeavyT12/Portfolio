@@ -1,12 +1,10 @@
 <template>
 	<v-timeline-item
 		ref="timelineItem"
-		v-resize="onResize"
 		v-bind="$attrs"
 		class="ty-timeline-item align-center"
-		:color="color"
-		small
-		v-on="$listeners"
+		:dot-color="color"
+		size="small"
 	>
 		<template #opposite>
 			<span
@@ -18,69 +16,66 @@
 			<slot name="opposite" />
 		</template>
 
-		<div class="d-flex">
-			<v-flex v-if="updateShouldSpace()" />
-			<v-card
-				ref="timelineItemCard"
-				class="ty-timeline-item__card"
-				:style="cardStyles"
+		<v-card
+			ref="timelineItemCard"
+			class="ty-timeline-item__card"
+			:style="cardStyles"
+		>
+			<v-card-title class="ty-timeline-item__card-title py-2 px-4">
+				<slot name="title">
+					<div
+						v-if="title"
+						class="text-h5"
+					>
+						{{ title }}
+					</div>
+				</slot>
+			</v-card-title>
+
+			<v-card-subtitle
+				v-if="dense"
+				class="py-1"
 			>
-				<v-card-title class="ty-timeline-item__card-title py-2 px-4">
-					<slot name="title">
-						<div
-							v-if="title"
-							class="text-h5"
-						>
-							{{ title }}
-						</div>
-					</slot>
-				</v-card-title>
+				{{ dateString }}
+			</v-card-subtitle>
 
-				<v-card-subtitle
-					v-if="dense"
-					class="py-1"
-				>
-					{{ dateString }}
-				</v-card-subtitle>
+			<template v-if="$slots.default">
+				<v-divider />
 
-				<template v-if="$slots.default">
-					<v-divider />
-
-					<v-card-text class="black--text">
-						<slot />
-						<div
-							v-if="showCollapsed"
-							class="ty-timeline-item__arrow-container ty-timeline-item__up-arrow-container pt-5 pb-2"
+				<v-card-text class="text-black">
+					<slot />
+					<div
+						v-if="showCollapsed"
+						class="ty-timeline-item__arrow-container ty-timeline-item__up-arrow-container pt-5 pb-2"
+					>
+						<TyButton
+							class="ty-timeline-item__up-arrow-button text-white"
+							color="rainBlue"
+							fab
+							size="x-small"
+							@click="onOverlayClick"
 						>
-							<TyButton
-								class="ty-timeline-item__up-arrow-button white--text"
-								color="rainBlue"
-								fab
-								x-small
-								@click="onOverlayClick"
-							>
-								<TyIcon>keyboard_arrow_down</TyIcon>
-							</TyButton>
-						</div>
-						<div
-							v-if="showExpanded"
-							class="ty-timeline-item__arrow-container ty-timeline-item__bottom-arrow-container"
-						>
-							<TyButton
-								icon="keyboard_arrow_up"
-								@click="onUpArrowClick"
-							/>
-						</div>
-					</v-card-text>
-				</template>
-			</v-card>
-		</div>
+							<TyIcon>mdi-chevron-down</TyIcon>
+						</TyButton>
+					</div>
+					<div
+						v-if="showExpanded"
+						class="ty-timeline-item__arrow-container ty-timeline-item__bottom-arrow-container"
+					>
+						<TyButton
+							icon="mdi-chevron-up"
+							@click="onUpArrowClick"
+						/>
+					</div>
+				</v-card-text>
+			</template>
+		</v-card>
 	</v-timeline-item>
 </template>
 
 <script>
-	import TyButton from 'Button/Button.vue';
-	import TyIcon from 'Icon/Icon.vue';
+	import TyButton from '@/components/Button/Button.vue';
+	import TyIcon from '@/components/Icon/Icon.vue';
 
 	import { debounce } from 'lodash-es';
 
@@ -102,6 +97,16 @@
 			TyIcon
 		},
 
+		inject: {
+			timeline: {
+				default: () => ({
+					getColors: () => [],
+					getDense: () => false,
+					register: () => 0
+				})
+			}
+		},
+
 		props: {
 			date: {
 				type: Object,
@@ -111,30 +116,32 @@
 						|| date instanceof Date
 			},
 
-			color: {
-				type: String,
-				default: undefined
-			},
-
 			title: {
 				type: String,
 				default: ''
-			},
-
-			dense: {
-				type: Boolean,
-				default: false
 			}
 		},
 
 		data: () => ({
-			shouldSpace: false,
+			itemIndex: 0,
 			oversized: false,
 			clickExpanded: false,
 			loading: true
 		}),
 
 		computed: {
+			color() {
+				const colors = this.timeline.getColors();
+
+				return colors.length
+					? colors[this.itemIndex % colors.length]
+					: undefined;
+			},
+
+			dense() {
+				return this.timeline.getDense();
+			},
+
 			cardStyles() {
 				if (!this.showCollapsed) {
 					return {};
@@ -159,46 +166,26 @@
 		},
 
 		created() {
+			this.itemIndex = this.timeline.register();
 			this.onResize = debounce(this.validateCardSize, 500);
 		},
 
+		mounted() {
+			this.validateCardSize();
+			window.addEventListener('resize', this.onResize);
+		},
+
+		beforeUnmount() {
+			window.removeEventListener('resize', this.onResize);
+		},
+
 		methods: {
-			calcShouldSpace() {
-				if (this.dense) {
-					return false;
-				}
-
-				const thisEl = this.$el;
-
-				if (!thisEl) {
-					return false;
-				}
-
-				const style = getComputedStyle(thisEl);
-				const flexDirection = style.flexDirection;
-
-				return flexDirection !== 'row-reverse';
-			},
-
-			updateShouldSpace() {
-				this.shouldSpace = this.calcShouldSpace()
-
-				return this.shouldSpace;
-			},
-
-			onResize() {
-				// Implementation in created hook.
-			},
-
 			validateCardSize() {
 				this.oversized = this.clickExpanded
 					|| (
-						this.$refs.timelineItemCard
-						&& this.$refs.timelineItemCard.$el
-						&& (
-							this.$refs.timelineItemCard.$el.style.maxHeight == MAX_CARD_HEIGHT
-							|| this.$refs.timelineItemCard.$el.offsetHeight >= MAX_CARD_HEIGHT
-						)
+						!!this.$refs.timelineItemCard
+						&& !!this.$refs.timelineItemCard.$el
+						&& this.$refs.timelineItemCard.$el.offsetHeight >= MAX_CARD_HEIGHT
 					);
 
 				this.loading = false;

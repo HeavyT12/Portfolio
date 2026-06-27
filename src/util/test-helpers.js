@@ -1,34 +1,28 @@
-import Vuex from 'vuex';
-import Vuetify from 'plugins/vuetify.js';
-import {shallowMount, createLocalVue} from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+import { createPinia } from 'pinia';
 
-export const setupLocalVue = () => {
-	const localVue = createLocalVue();
-
-	localVue.use(Vuex);
-
-	return localVue;
-}
-
-export const setupEnvironmentVars = () => {
-	return {
-		localVue: setupLocalVue(),
-		vuetify: Vuetify
-	}
-}
+export const createVuetifyInstance = () => createVuetify({ components, directives });
 
 /**
- * @param {Component|Object}
- * 
+ * Builds a factory that fully mounts the given component with the Vuetify and
+ * Pinia plugins registered. Full mount (rather than shallow) is used so slot
+ * pass-through and Vuetify rendering can be asserted against real output.
+ *
+ * @param {Component|Object} component
+ *
  * @returns {Function}
  */
-export const createShallowMountFactory = (component) => {
-	const environmentVars = setupEnvironmentVars();
-
+export const createMountFactory = (component) => {
 	return (options = {}) => {
-		return shallowMount(component, {
-			...environmentVars,
-			...options
-		})
+		return mount(component, {
+			...options,
+			global: {
+				plugins: [createVuetifyInstance(), createPinia()],
+				...options.global
+			}
+		});
 	};
 };

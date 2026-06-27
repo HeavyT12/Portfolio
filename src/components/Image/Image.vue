@@ -2,7 +2,6 @@
 	<v-img
 		v-bind="$attrs"
 		class="ty-image"
-		v-on="$listeners"
 	>
 		<slot />
 	</v-img>

@@ -4,16 +4,15 @@
 		class="announcement-bar text-center"
 		:type="type"
 		:icon="iconToUse"
-		v-on="$listeners"
 	>
 		{{ text }}
 	</v-alert>
 </template>
 
 <script>
-	import { ICON_MAP } from 'mixins/Notification/Notification.js';
+	import { ICON_MAP } from '@/mixins/Notification/Notification.js';
 
-	import { hasOwnProperty } from 'object.js';
+	import { hasOwnProperty } from '@/util/object.js';
 
 	const DEFAULT_MESSAGE_MILLISECONDS = 10000;
 
@@ -84,7 +83,7 @@
 			this.startInterval();
 		},
 
-		beforeDestroy() {
+		beforeUnmount() {
 			this.stopInterval();
 		},
 

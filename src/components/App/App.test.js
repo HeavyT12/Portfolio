@@ -1,7 +1,9 @@
-import App from './App.vue';
-import { createShallowMountFactory } from 'util/test-helpers.js';
+import { describe, it, expect } from 'vitest';
 
-const factory = createShallowMountFactory(App);
+import App from './App.vue';
+import { createMountFactory } from '@/util/test-helpers.js';
+
+const factory = createMountFactory(App);
 
 describe('App', () => {
 	describe('Slots', () => {
