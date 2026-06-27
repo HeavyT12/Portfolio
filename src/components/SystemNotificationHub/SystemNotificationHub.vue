@@ -2,7 +2,7 @@
 	<div class="system-notification-hub">
 		<TyAlertSnackbar
 			v-for="({notifications, clearMethod, type}, n) in genAlertsData()"
-			v-model="notifications.length"
+			:model-value="notifications.length > 0"
 			:key="n"
 			:type="type"
 			:alerts="notifications"
@@ -12,7 +12,7 @@
 
 		<TyMessageDialog
 			v-for="({notifications, clearMethod, type}, n) in genMessagesData()"
-			v-model="notifications.length"
+			:model-value="notifications.length > 0"
 			:key="n"
 			:type="type"
 			:messages="notifications"
