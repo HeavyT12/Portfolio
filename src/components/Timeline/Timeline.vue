@@ -133,7 +133,7 @@
 			},
 
 			updateTimelineItemsProperty(forEachLambda) {
-				this.$children[1]?.$children
+				this.$refs.timeline?.$children
 					.filter(child => child.$options.name === TyTimelineItem.name)
 					.forEach(forEachLambda);
 			}

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'plugins/vuetify.js';
 import Vuex, { Store } from 'vuex';
 import Vuelidate from 'vuelidate'
-import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
+import VuelidateErrorExtractor from 'vuelidate-error-extractor';
 import FormGroup from 'components/FormGroup/FormGroup.vue'
 
 function errorHandler(error) {
@@ -32,7 +32,7 @@ export function createAppDiv() {
 	element.id = 'app';
 
 	return element;
-};
+}
 
 export function mount(component, store = null) {
 	document.body.appendChild(createAppDiv());
@@ -48,4 +48,4 @@ export function mount(component, store = null) {
 	}
 
 	new Vue(initializer);
-};
+}

@@ -53,7 +53,7 @@ const decrementNotifications = (state, key, quantity = 1, type = undefined) => {
 		}
 
 		count++;
-		false;
+		return false;
 	});
 }
 const clearNotifications = (state, key, type) => {
