@@ -120,10 +120,10 @@ rebuild + commit `dist/` before deploying. Verify with `npm run preview` first.
 ## Not yet migrated / deferred
 
 The **contact form** (ContactMe + Form/FormGroup/TextField/Recaptcha) and its deps
-(Vuelidate, vue-recaptcha) were **removed** during the Vue 3 migration — they had no Vue 3
-support and the form was dead (unrendered, no submit). To be rebuilt later with a modern
-validator + a Cloudflare Turnstile–style check + a real submit handler. `Loading/Mask` +
-`Loading/Logo` are migrated but currently unused (candidates for removal).
+(Vuelidate, vue-recaptcha) were **removed** during the Vue 3 migration — no Vue 3 support and
+the form was dead (unrendered, no submit). `Loading/Mask` + `Loading/Logo` are migrated but
+currently unused. See [BACKLOG.md](BACKLOG.md) for the planned follow-ups (contact-form rebuild,
+removing the unused loaders, CSS tree-shaking).
 
 ## Conventions
 
