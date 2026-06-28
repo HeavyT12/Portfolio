@@ -1,0 +1,29 @@
+/*
+ * Vuetify 4 renamed its typography utilities to Material 3 tokens
+ * (.text-headline-*, .text-body-*, .text-title-*) and no longer ships the
+ * classic .text-h* / .text-caption classes. These templates still use the
+ * classic names, so re-define just the ones in use with their canonical
+ * Vuetify values. font-weight is left non-important so `font-weight-bold`
+ * can still override it.
+ */
+.text-h4 {
+	font-size: 2.125rem !important;
+	font-weight: 400;
+	line-height: 2.5rem;
+	letter-spacing: 0.0073529412em !important;
+}
+
+.text-h5 {
+	font-size: 1.5rem !important;
+	font-weight: 400;
+	line-height: 2rem;
+	letter-spacing: normal !important;
+}
+
+.text-caption {
+	font-size: 0.75rem !important;
+	font-weight: 400;
+	line-height: 1.25rem;
+	letter-spacing: 0.0333333333em !important;
+	text-transform: none !important;
+}

@@ -1,5 +1,6 @@
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/styles';
+import '@/styles/typography.css';
 
 import { createVuetify } from 'vuetify';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
