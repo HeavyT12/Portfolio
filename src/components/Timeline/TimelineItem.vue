@@ -9,7 +9,7 @@
 		<template #opposite>
 			<span
 				v-if="date"
-				class="text-h6 font-weight-bold"
+				class="text-h5 font-weight-bold"
 			>
 				{{ dateString }}
 			</span>
@@ -51,7 +51,7 @@
 						<TyButton
 							class="ty-timeline-item__up-arrow-button text-white"
 							color="rainBlue"
-							fab
+							icon
 							size="x-small"
 							@click="onOverlayClick"
 						>
@@ -211,6 +211,11 @@
 
 <style lang="scss" scoped>
 	.ty-timeline-item {
+		// Let the card fill its side of the timeline rather than shrink to content.
+		:deep(.v-timeline-item__body) {
+			width: 100%;
+		}
+
 		.ty-timeline-item__card {
 			overflow-y: hidden;
 		}

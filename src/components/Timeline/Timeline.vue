@@ -2,21 +2,23 @@
 	<div class="ty-timeline">
 		<v-toolbar
 			v-if="title"
-			class="text-h4"
+			color="transparent"
 			:style="toolbarStyle"
 			flat
-			density="compact"
 		>
 			<TyLink
 				v-if="website"
-				class="ty-timeline__website-link"
+				class="ty-timeline__website-link ty-timeline__title"
 				:href="website"
 			>
 				{{ title }}
 			</TyLink>
-			<template v-else>
+			<span
+				v-else
+				class="ty-timeline__title"
+			>
 				{{ title }}
-			</template>
+			</span>
 		</v-toolbar>
 		<v-timeline
 			v-bind="$attrs"
@@ -104,6 +106,12 @@
 
 <style scoped lang="scss">
 	.ty-timeline {
+		.ty-timeline__title {
+			font-size: 2.5rem;
+			font-weight: 700;
+			line-height: 1.25;
+		}
+
 		.ty-timeline__timeline {
 			padding-top: 12px;
 		}

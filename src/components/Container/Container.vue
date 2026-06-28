@@ -18,7 +18,7 @@
 		computed: {
 			classes() {
 				return {
-					['ty-container--squished']: this.$vuetify.display.mdAndUp
+					['ty-container--squished']: this.$vuetify.display.lgAndUp
 				}
 			}
 		}
