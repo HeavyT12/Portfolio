@@ -23,6 +23,23 @@
 			<div class="mx-2">
 				Tyson Farley Portfolio
 			</div>
+
+			<v-spacer />
+
+			<TyButton
+				icon="mdi-email"
+				icon-placement="start"
+				@click="contactOpen = true"
+			>
+				Contact
+			</TyButton>
+
+			<TyDialog
+				v-model="contactOpen"
+				title="Contact Me"
+			>
+				<ContactMe @sent="contactOpen = false" />
+			</TyDialog>
 		</template>
 
 		<PersonalHistory
@@ -36,6 +53,9 @@
 	import TyApp from '@/components/App/App.vue';
 	import TyImage from '@/components/Image/Image.vue';
 	import SystemNotificationHub from '@/components/SystemNotificationHub/SystemNotificationHub.vue';
+	import TyButton from '@/components/Button/Button.vue';
+	import TyDialog from '@/components/Dialog/Dialog.vue';
+	import ContactMe from '@/Forms/ContactMe.vue';
 
 	export default {
 		name: 'Home',
@@ -44,7 +64,14 @@
 			PersonalHistory,
 			TyApp,
 			TyImage,
-			SystemNotificationHub
-		}
+			SystemNotificationHub,
+			TyButton,
+			TyDialog,
+			ContactMe
+		},
+
+		data: () => ({
+			contactOpen: false
+		})
 	};
 </script>

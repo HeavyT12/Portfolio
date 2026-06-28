@@ -117,13 +117,25 @@ rebuild + commit `dist/` before deploying. Verify with `npm run preview` first.
   which **full-mounts** with a fresh Vuetify instance + Pinia registered (`global.plugins`).
   Import `describe`/`it`/`expect` explicitly from `vitest`.
 
-## Not yet migrated / deferred
+## Contact form
 
-The **contact form** (ContactMe + Form/FormGroup/TextField/Recaptcha) and its deps
-(Vuelidate, vue-recaptcha) were **removed** during the Vue 3 migration — no Vue 3 support and
-the form was dead (unrendered, no submit). `Loading/Mask` + `Loading/Logo` are migrated but
-currently unused. See [BACKLOG.md](BACKLOG.md) for the planned follow-ups (contact-form rebuild,
-removing the unused loaders, CSS tree-shaking).
+[ContactMe.vue](src/Forms/ContactMe.vue) is a Vuetify `v-form` (built-in `:rules` validation, no
+Vuelidate) with name/email/message + a Cloudflare **Turnstile** widget
+([TyTurnstile](src/components/Turnstile/Turnstile.vue), wrapping `vue-turnstile`) and
+[TyTextField](src/components/TextField/TextField.vue). It's opened from a "Contact" app-bar button
+into a [TyDialog](src/components/Dialog/Dialog.vue) on [Home.vue](src/pages/Home/Home.vue). Submit
+posts `{ name, email, message, token }` to the **Cloudflare Worker** in [worker/](worker/), which
+verifies the Turnstile token and emails via **Resend**. Success/error surface through the existing
+Pinia notification store ([useSystemStore](src/stores/system.js) `addAlert`).
+
+- **Build-time config** (public, in `.env.development` / `.env.production`): `VITE_TURNSTILE_SITE_KEY`,
+  `VITE_CONTACT_ENDPOINT`. Dev uses Turnstile test keys + a local `wrangler dev` endpoint.
+- **Worker** is deployed *separately* (not via gh-pages): `cd worker && wrangler deploy`, with
+  secrets `TURNSTILE_SECRET_KEY` / `RESEND_API_KEY` via `wrangler secret put` — see [worker/README.md](worker/README.md).
+- Resend currently sends from `onboarding@resend.dev` to `heavyt12@gmail.com` (no custom domain;
+  test-mode delivery to the account's own email).
+
+`Loading/Mask` + `Loading/Logo` remain migrated-but-unused — see [BACKLOG.md](BACKLOG.md).
 
 ## Conventions
 

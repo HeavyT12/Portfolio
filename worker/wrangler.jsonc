@@ -1,0 +1,11 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "portfolio-contact",
+	"main": "src/index.js",
+	"compatibility_date": "2025-06-01",
+	"observability": { "enabled": true },
+	"vars": {
+		"CONTACT_TO": "heavyt12@gmail.com",
+		"CONTACT_FROM": "Portfolio Contact <onboarding@resend.dev>"
+	}
+}

@@ -4,22 +4,16 @@ Persistent follow-ups that should outlast any single working session. Newest con
 
 ## Deferred during the Vue 3 / Vuetify 4 migration (2026-06-27)
 
-### 1. Rebuild the contact form
-The old ContactMe form (+ Form/FormGroup/TextField/Recaptcha) and its deps (Vuelidate,
-vue-recaptcha) were **removed** during the migration — they had no Vue 3 support and the form
-was dead (unrendered, no submit handler). Rebuild it on the modern stack:
+### 1. Rebuild the contact form — DONE (2026-06-27, pending live deploy)
+Rebuilt on the current stack: [ContactMe.vue](src/Forms/ContactMe.vue) (Vuetify `v-form` built-in
+`:rules`, no Vuelidate) + Cloudflare **Turnstile** ([TyTurnstile](src/components/Turnstile/Turnstile.vue))
+→ POST to the [worker/](worker/) Cloudflare Worker → verify Turnstile → **Resend** email to
+heavyt12@gmail.com. Opened from a "Contact" app-bar button into a `TyDialog`. See the "Contact form"
+section of [CLAUDE.md](CLAUDE.md) and [worker/README.md](worker/README.md).
 
-- **Validation**: `@vuelidate/core` (composition API). Rebuild a lean FormGroup that derives
-  errors from `v$.$errors`; re-add Ty wrappers for the inputs as needed.
-- **Bot protection**: Cloudflare **Turnstile** (the reCAPTCHA-like check discussed) — widget +
-  server-side verification.
-- **Submit handler**: GitHub Pages is **static**, so the form needs an external endpoint. Options:
-  a Cloudflare Worker / Pages Function that verifies Turnstile and emails (a Resend integration
-  is available), or a form service (Formspree / Web3Forms). **Decide hosting approach first** —
-  it may imply adding a Worker.
-- Then render ContactMe on [Home.vue](src/pages/Home/Home.vue).
-
-Scope this as its own feature before starting.
+Remaining to go live (needs the user's accounts): create the Turnstile widget + Resend API key,
+`wrangler deploy` the Worker with secrets, fill `.env.production` with the real site key + Worker
+URL, then rebuild + deploy the frontend.
 
 ### 2. Remove or wire up `Loading/Mask` + `Loading/Logo`
 Both were migrated to Vue 3 but are **unused** (nothing imports `Mask`; `Logo` only feeds `Mask`).

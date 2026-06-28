@@ -1,1 +1,10 @@
 node_modules
+
+# Local env overrides (committed .env.development/.env.production hold only public values)
+.env.local
+.env.*.local
+
+# Cloudflare Worker local state (worker/ has its own .gitignore too)
+.wrangler
+worker/.dev.vars
+worker/node_modules
