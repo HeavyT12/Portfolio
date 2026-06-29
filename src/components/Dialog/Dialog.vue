@@ -15,7 +15,7 @@
 
 		<v-card>
 			<template v-if="title || $slots.title">
-				<v-card-title>
+				<v-card-title class="d-flex align-center">
 					<span
 						v-if="icon || $slots.icon"
 						class="pr-2 d-flex"

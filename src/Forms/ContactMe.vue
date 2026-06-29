@@ -30,16 +30,6 @@
 			ref="turnstile"
 			v-model="token"
 		/>
-
-		<TyButton
-			class="mt-4"
-			type="submit"
-			color="primary"
-			:loading="loading"
-			:disabled="loading"
-		>
-			Submit
-		</TyButton>
 	</v-form>
 </template>
 
@@ -48,7 +38,6 @@
 
 	import { useSystemStore } from '@/stores/system.js';
 
-	import TyButton from '@/components/Button/Button.vue';
 	import TyTextField from '@/components/TextField/TextField.vue';
 	import TyTurnstile from '@/components/Turnstile/Turnstile.vue';
 
@@ -61,12 +50,11 @@
 		inheritAttrs: false,
 
 		components: {
-			TyButton,
 			TyTextField,
 			TyTurnstile
 		},
 
-		emits: ['sent'],
+		emits: ['sent', 'update:loading'],
 
 		data: () => ({
 			form: {
@@ -87,6 +75,13 @@
 				value => !!(value && value.trim()) || 'Message is required.'
 			]
 		}),
+
+		watch: {
+			// Surface submit progress so the dialog's action button can show it.
+			loading(value) {
+				this.$emit('update:loading', value);
+			}
+		},
 
 		methods: {
 			...mapActions(useSystemStore, ['addAlert']),

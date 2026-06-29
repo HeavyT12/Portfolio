@@ -37,8 +37,30 @@
 			<TyDialog
 				v-model="contactOpen"
 				title="Contact Me"
+				:closable="true"
 			>
-				<ContactMe @sent="contactOpen = false" />
+				<ContactMe
+					ref="contact"
+					@sent="contactOpen = false"
+					@update:loading="contactLoading = $event"
+				/>
+
+				<template #actions>
+					<TyButton
+						:disabled="contactLoading"
+						@click="contactOpen = false"
+					>
+						Close
+					</TyButton>
+					<TyButton
+						color="primary"
+						:loading="contactLoading"
+						:disabled="contactLoading"
+						@click="$refs.contact.submit()"
+					>
+						Submit
+					</TyButton>
+				</template>
 			</TyDialog>
 		</template>
 
@@ -71,7 +93,8 @@
 		},
 
 		data: () => ({
-			contactOpen: false
+			contactOpen: false,
+			contactLoading: false
 		})
 	};
 </script>
