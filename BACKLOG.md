@@ -2,6 +2,12 @@
 
 Persistent follow-ups that should outlast any single working session. Newest context at top.
 
+## Analytics: switched to Cloudflare Web Analytics (2026-06-29)
+Removed the old Google Analytics gtag snippet and replaced it with a cookieless **Cloudflare Web
+Analytics** beacon in [index.html](index.html) (free, no consent banner needed). Pageviews/referrers/
+countries are viewed in the Cloudflare dashboard (Web Analytics → site `heavyt12.github.io`). Nothing
+outstanding — noted here only so the analytics provider is on record.
+
 ## Deferred during the Vue 3 / Vuetify 4 migration (2026-06-27)
 
 ### 1. Rebuild the contact form — DONE (2026-06-27, pending live deploy)

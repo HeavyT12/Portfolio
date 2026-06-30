@@ -53,8 +53,10 @@ rebuild + commit `dist/` before deploying. Verify with `npm run preview` first.
 
 - **Entry & bootstrap**: [src/main.js](src/main.js) is the Vite entry referenced by the
   static [index.html](index.html). It `createApp(Home)`, registers Pinia + the Vuetify
-  plugin, sets `app.config.errorHandler` (+ `window.onerror`), and mounts `#app`. The GA
-  (gtag) snippet lives directly in `index.html`. Static assets live in
+  plugin, sets `app.config.errorHandler` (+ `window.onerror`), and mounts `#app`. A cookieless
+  **Cloudflare Web Analytics** beacon (privacy-first, no consent banner) lives directly in
+  `index.html`; visits are viewed in the Cloudflare dashboard (Web Analytics, site
+  `heavyt12.github.io`). Static assets live in
   [public/resource/](public/resource/) and are referenced base-relative (`resource/logo.png`).
 
 - **Vuetify plugin**: [src/plugins/vuetify.js](src/plugins/vuetify.js) calls
