@@ -5,6 +5,7 @@
 		title="Domo"
 		website="https://www.domo.com"
 		:colors="colors"
+		:skills="skills"
 	>
 		<TyTimelineItem
 			:date="new Date('October 18, 2021')"
@@ -196,6 +197,18 @@
 			colors: [
 				'rgb(153, 204, 238)',
 				'rgb(255, 255, 255)'
+			],
+
+			skills: [
+				'Java',
+				'Spring',
+				'SQL',
+				'MDX',
+				'Dremio',
+				'Databricks',
+				'LLMs',
+				'Prompt Engineering',
+				'Vector Databases'
 			]
 		})
 	};

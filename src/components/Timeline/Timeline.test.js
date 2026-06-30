@@ -33,6 +33,26 @@ describe('Timeline', () => {
 		});
 	});
 
+	describe('skills', () => {
+		it('renders a chip for each skill', () => {
+			const wrapper = factory({
+				props: {
+					skills: ['Java', 'Vue']
+				}
+			});
+
+			const row = wrapper.find('.ty-timeline__skills');
+
+			expect(row.exists()).toBe(true);
+			expect(row.text()).toContain('Java');
+			expect(row.text()).toContain('Vue');
+		});
+
+		it('omits the chip row when no skills are passed', () => {
+			expect(factory().find('.ty-timeline__skills').exists()).toBe(false);
+		});
+	});
+
 	describe('color propagation', () => {
 		it('assigns palette colors to items by registration order', () => {
 			const wrapper = mount({

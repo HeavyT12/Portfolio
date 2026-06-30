@@ -1,25 +1,35 @@
 <template>
 	<div class="ty-timeline">
-		<v-toolbar
-			v-if="title"
-			color="transparent"
-			:style="toolbarStyle"
-			flat
+		<div
+			v-if="title || skills.length"
+			class="ty-timeline__header"
+			:style="headerStyle"
 		>
 			<TyLink
-				v-if="website"
+				v-if="title && website"
 				class="ty-timeline__website-link ty-timeline__title"
 				:href="website"
 			>
 				{{ title }}
 			</TyLink>
 			<span
-				v-else
+				v-else-if="title"
 				class="ty-timeline__title"
 			>
 				{{ title }}
 			</span>
-		</v-toolbar>
+			<div
+				v-if="skills.length"
+				class="ty-timeline__skills d-flex flex-wrap ga-2"
+			>
+				<TyChip
+					v-for="skill in skills"
+					:key="skill"
+				>
+					{{ skill }}
+				</TyChip>
+			</div>
+		</div>
 		<v-timeline
 			v-bind="$attrs"
 			class="ty-timeline__timeline pr-4"
@@ -33,6 +43,7 @@
 </template>
 
 <script>
+	import TyChip from '@/components/Chip/Chip.vue';
 	import TyLink from '@/components/Link/Link.vue';
 
 	/** Specialized version of the v-timeline component. */
@@ -42,6 +53,7 @@
 		inheritAttrs: false,
 
 		components: {
+			TyChip,
 			TyLink
 		},
 
@@ -82,6 +94,14 @@
 			website: {
 				type: String,
 				default: ''
+			},
+
+			/** Short skill labels rendered as a subtle chip cloud beside the title. */
+			skills: {
+				type: Array,
+				default: () => [],
+				validator: skills =>
+					skills.every(skill => typeof skill == 'string')
 			}
 		},
 
@@ -97,7 +117,7 @@
 				};
 			},
 
-			toolbarStyle() {
+			headerStyle() {
 				return `border-bottom: 3px solid ${this.colors[0]};`
 			}
 		}
@@ -106,10 +126,24 @@
 
 <style scoped lang="scss">
 	.ty-timeline {
+		.ty-timeline__header {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			column-gap: 1.5rem;
+			row-gap: 0.5rem;
+			padding: 0.5rem 1rem;
+		}
+
 		.ty-timeline__title {
 			font-size: 2.5rem;
 			font-weight: 700;
 			line-height: 1.25;
+		}
+
+		// Push the chip cloud to the right edge of the header, opposite the title.
+		.ty-timeline__skills {
+			margin-left: auto;
 		}
 
 		.ty-timeline__timeline {

@@ -5,6 +5,7 @@
 		title="StateFoodSafety"
 		website="https://www.statefoodsafety.com"
 		:colors="colors"
+		:skills="skills"
 	>
 		<TyTimelineItem
 			:date="new Date('January 22, 2018')"
@@ -88,6 +89,14 @@
 				'rgb(3, 117, 163)',
 				'rgb(147, 74, 156)',
 				'rgb(55, 190, 237)'
+			],
+
+			skills: [
+				'JavaScript',
+				'Vue.js',
+				'PHP',
+				'Frontend Development',
+				'Full-Stack'
 			]
 		})
 	};
