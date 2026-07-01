@@ -20,8 +20,9 @@
 				:to="{ name: 'home' }"
 			>
 				<TyImage
+					class="flex-shrink-0"
 					src="resource/logo.png"
-					:max-width="$vuetify.display.mdAndUp ? 60 : 52"
+					:width="$vuetify.display.mdAndUp ? 60 : 52"
 				/>
 
 				<div class="mx-2">
