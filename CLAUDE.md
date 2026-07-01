@@ -30,24 +30,25 @@ honored by Vitest). **Always import with explicit `@/` paths**, e.g.
 resolution is gone.) Vuetify `v-*` components and directives are **auto-imported** by
 `vite-plugin-vuetify` — never import them manually; only the `Ty*` wrappers are imported.
 
-## Deployment (GitHub Pages)
+## Deployment (GitHub Pages via Actions)
 
-The site is served from the `gh-pages` branch via the `git subtree push` technique
-(per https://gist.github.com/cobyism/4730490). **`dist/` is committed to the repo and is
-exactly what gets served** — it is *not* a throwaway artifact (only `node_modules` is
-gitignored). `base: './'` in [vite.config.js](vite.config.js) keeps built asset URLs
-relative so they resolve under the `/Portfolio/` project subpath. Deploy flow:
+Deploys are **automatic** through the [deploy workflow](.github/workflows/deploy.yml): every
+push to `master` runs `npm ci` + `npm run build`, uploads `dist/` as a Pages artifact, and
+publishes it with `actions/deploy-pages` — an **atomic** swap with no downtime. The repo's
+Pages **Source must be set to "GitHub Actions"** (Settings → Pages); the workflow's
+`actions/configure-pages` (`enablement: true`) also switches it on the first run.
 
-1. `npm run build` — regenerate `dist/`.
-2. Commit the updated `dist/` alongside the source changes.
-3. Push the subtree:
-   ```bash
-   git push origin :gh-pages && git subtree push --prefix dist origin gh-pages
-   ```
-   (deletes the stale remote branch first, then republishes `dist/` as a fresh tree).
+**`dist/` is a build artifact — gitignored, not committed.** CI rebuilds it from source each
+deploy, so there's no stale-`dist/` footgun and nothing to commit. `base: './'` in
+[vite.config.js](vite.config.js) keeps built asset URLs relative so they resolve under the
+`/Portfolio/` project subpath.
 
-Consequence: after any source change, a stale `dist/` keeps serving the old build. Always
-rebuild + commit `dist/` before deploying. Verify with `npm run preview` first.
+- To ship: merge/push to `master` and watch the run in the **Actions** tab. Manual runs are
+  available via **workflow_dispatch** (Run workflow) on the same tab.
+- Verify a build locally first with `npm run build && npm run preview`.
+- The old `gh-pages` branch and the `git subtree push` technique are **retired** (that
+  delete-then-recreate flow caused a brief 404 on every deploy). The `gh-pages` branch is
+  now vestigial and can be deleted.
 
 ## Architecture
 

@@ -1,0 +1,56 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Deploy on every push to master...
+  push:
+    branches: [master]
+  # ...and allow a manual run from the Actions tab.
+  workflow_dispatch:
+
+# Least-privilege token: read the repo, write the Pages deployment, and mint the
+# OIDC token deploy-pages needs.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two deploys at once; let an in-flight deploy finish rather than
+# cancelling it (avoids publishing a half-built site).
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # enablement: true switches the repo's Pages source to "GitHub Actions"
+      # on the first run (away from the old gh-pages branch source).
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

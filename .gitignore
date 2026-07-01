@@ -1,5 +1,9 @@
 node_modules
 
+# Build output — produced fresh in CI by .github/workflows/deploy.yml and
+# published straight to GitHub Pages; no longer committed to the repo.
+dist
+
 # Local env overrides (committed .env.development/.env.production hold only public values)
 .env.local
 .env.*.local
