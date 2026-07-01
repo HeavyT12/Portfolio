@@ -52,8 +52,10 @@ rebuild + commit `dist/` before deploying. Verify with `npm run preview` first.
 ## Architecture
 
 - **Entry & bootstrap**: [src/main.js](src/main.js) is the Vite entry referenced by the
-  static [index.html](index.html). It `createApp(Home)`, registers Pinia + the Vuetify
-  plugin, sets `app.config.errorHandler` (+ `window.onerror`), and mounts `#app`. A cookieless
+  static [index.html](index.html). It `createApp(App)` ([src/App.vue](src/App.vue), the root
+  shell), registers Pinia + the Vuetify plugin + the **Vue Router**
+  ([src/router/index.js](src/router/index.js)), sets `app.config.errorHandler`
+  (+ `window.onerror`), and mounts `#app`. A cookieless
   **Cloudflare Web Analytics** beacon (privacy-first, no consent banner) lives directly in
   `index.html`; visits are viewed in the Cloudflare dashboard (Web Analytics, site
   `heavyt12.github.io`). Static assets live in
@@ -72,8 +74,17 @@ rebuild + commit `dist/` before deploying. Verify with `npm run preview` first.
   with `v-bind="$attrs"` (in Vue 3, `$attrs` includes listeners — there is **no**
   `v-on="$listeners"`).
 
-- **Page composition**: [Home.vue](src/pages/Home/Home.vue) → `TyApp` (app-bar / footer /
-  notification slots) → `SystemNotificationHub` + `PersonalHistory`.
+- **Routing & page composition**: the root [App.vue](src/App.vue) owns the persistent shell
+  — `TyApp` (app-bar / footer / notification slots), the app-bar nav (logo + **Home** /
+  **About** `TyButton`s with `:to`, which `v-btn` resolves against the router), the Contact
+  `TyDialog`, and `SystemNotificationHub` — and renders `<router-view />` for the active
+  page. Two routes ([src/router/index.js](src/router/index.js)): `home` (`/` →
+  [Home.vue](src/pages/Home/Home.vue), just `PersonalHistory`) and `about` (`/about` →
+  [About.vue](src/pages/About/About.vue), the bio page). The router uses
+  **`createWebHashHistory`** (routes live under `…/Portfolio/#/about`) *deliberately*:
+  GitHub Pages has no SPA fallback, so HTML5-history deep links / reloads would 404 — the
+  hash keeps routing client-side with no `404.html` rewrite. New top-level pages = a new
+  `pages/<Name>/<Name>.vue` + a route entry; new nav = a `TyButton :to` in `App.vue`.
 
 - **Portfolio content lives in Period components**:
   [src/components/Period/<Employer>/<Employer>.vue](src/components/Period/) (e.g. `Domo`,
